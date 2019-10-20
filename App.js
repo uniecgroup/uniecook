@@ -1,11 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AppNavigator from './src/navigation/AppNavigation';
+import { Provider } from "react-redux";
+import AppStore from './src/common/appStore'
 
-export default class App extends React.Component {
+import { bindActionCreators } from 'redux';
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+const appStore = AppStore();
+
+class App extends React.Component {
+  mapStateToProps(state) {
+    return { user: state.user}
+  }
+
   render(){
     return (
-      <AppNavigator/>
+      <Provider store={appStore}>
+        <AppNavigator/>
+      </Provider>
     );
   }
 }
@@ -18,3 +36,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App
