@@ -16,13 +16,13 @@ const appStore = AppStore();
 
 class App extends React.Component {
   mapStateToProps(state) {
-    return { user: state.user}
+    return { user: state.user }
   }
 
-  render(){
+  render() {
     return (
       <Provider store={appStore}>
-        <AppNavigator/>
+        <AppNavigator />
       </Provider>
     );
   }

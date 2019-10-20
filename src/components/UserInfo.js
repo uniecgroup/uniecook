@@ -10,22 +10,28 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => {
+    
     return {
-        changName: () => dispatch({type: ACTION_TYPES.USER_OPERATOINS.NEW_NAME, payload: {userName: "Marry has a little lamb"} })
+        changName: () => dispatch({type: ACTION_TYPES.USER_OPERATOINS.NEW_NAME, payload: {userName: "little lamb"} })
     }
   }
 
 class UserInfo extends Component {
     constructor(props) {
         super(props);
+
+        const newUserName = this.props.navigation.state.params.newName;        
+
         this.state = {
-            user: props.user
+            user: props.user,
+            newUserName: newUserName
         }
     }
     render() {
         return (
             <View>
                 <Text>{this.props.user.userName}</Text>
+                <Text>{this.state.newUserName}</Text>
                 <Button title='Press Me to Change Name' onPress={()=>this.props.changName()}/>
             </View>
 

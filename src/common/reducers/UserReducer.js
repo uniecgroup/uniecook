@@ -1,7 +1,7 @@
 import ACTION_TYPES from '../actions/types';
 
 const initialState = {
-    userLoggedOn : false,
+    userLoggedOn: false,
     userName: 'John Smith',
     userPassword: '123456',
     apiToken: 'asdf34fdlfasdfhlk5242lk24j2j234lkjasdfsahj55'
@@ -16,7 +16,7 @@ export default UserReducer = (state = initialState, action) => {
                 userName: action.payload.userName
             }
             break
-        default: 
+        default:
             return initialState
             break;
     }
