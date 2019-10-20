@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
-import NewOrderList from '../components/NewOrderList';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import NewOrderListPage from './NewOrderListPage';
+import NewOrderDetailsPage from './NewOrderDetailsPage';
 
-export default class NewOrderPage extends React.Component{
-    render(){
-        return(
-            <NewOrderList navigation={this.props.navigation}/>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'black',
+const NewOrderNavigator = createStackNavigator({
+    NewOrderListPage: {
+        screen: NewOrderListPage,
+        navigationOptions: () => ({
+            header: null
+        })
     },
-    homeText: {
-        fontSize: 24,
-    }
+    NewOrderDetailsPage: {
+        screen: NewOrderDetailsPage,
+        navigationOptions: () => ({
+            title: 'New Order Details'
+        })
+    },
+},{
+    initialRouteName: 'NewOrderListPage',
 });
+
+export default createAppContainer(NewOrderNavigator);

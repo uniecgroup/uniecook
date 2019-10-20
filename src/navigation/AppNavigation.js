@@ -8,43 +8,37 @@ import InProgressPage from '../screens/InProgressPage';
 import ReadyPage from '../screens/ReadyPage';
 import HistoryPage from '../screens/HistoryPage';
 import SettingsPage from '../screens/SettingsPage';
-import DetailsPage from '../screens/DetailsPage';
 
-const sidebarNavigator = createSidebarNavigator(
+const AppNavigator = createSidebarNavigator(
     {
       NewOrderPage: {
         screen: NewOrderPage,
         params: {
           icon: 'receipt',
-          //tabName: 'New Order',
         },
       },
       InProgressPage : {
         screen: InProgressPage,
           params: {
               icon: 'paypal',
-              //tabName: 'In Progress',
           }
       },
       ReadyPage : {
           screen: ReadyPage,
             params: {
                 icon: 'shopping-bag',
-                //tabName: 'Ready',
           }
       },
       HistoryPage : {
           screen: HistoryPage,
             params: {
                 icon: 'history',
-                //tabName: 'History',
             }
       },
       SettingsPage : {
           screen: SettingsPage,
             params: {
                 icon: 'user',
-                //tabName: 'Settings',
             }
       },
     },
@@ -52,22 +46,5 @@ const sidebarNavigator = createSidebarNavigator(
       initialRouteName: 'NewOrderPage',
     },
   );
-
-const AppNavigator = createStackNavigator({
-    NewOrderPage: {
-        screen: sidebarNavigator,
-        navigationOptions: () => ({
-            header: null
-        })
-    },
-    DetailsPage: {
-        screen: DetailsPage,
-        navigationOptions: () => ({
-            title: 'Order Details'
-        })
-    },
-},{
-    initialRouteName: 'NewOrderPage',
-})
 
 export default createAppContainer(AppNavigator);

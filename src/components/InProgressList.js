@@ -3,69 +3,6 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity } from
 
 const DATA = [
     {
-      id: 'bd7acbea-c1b1-46c2-aed5',
-      title: '4378',
-      name: 'Hugh P.',
-      time: '11:43am',
-      price: '$29.95',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa',
-      title: '4377',
-      name: 'Bernadette M.',
-      time: '12:43am',
-      price: '$19.95',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-1455d72',
-      title: '4376',
-      name: 'Shannah C.',
-      time: '1:43pm',
-      price: '$129.95',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-1e29d72',
-      title: '4375',
-      name: 'Tara G.',
-      time: '7:43pm',
-      price: '$60.35',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145572',
-      title: '4374',
-      name: 'Christy P.',
-      time: '8:43pm',
-      price: '$36.44',
-    },
-    {
-      id: '58694a0f-3da1-471f-145571e29d72',
-      title: '4373',
-      name: 'Randy I.',
-      time: '1:43pm',
-      price: '$12.33',
-    },
-    {
-      id: '58694a0f-3da1-145571e29d72',
-      title: '4372',
-      name: 'Brittany F.',
-      time: '9:43pm',
-      price: '$15.98',
-    },
-    {
-      id: '58694a0f-3da1-4f-bd96-145571e29d72',
-      title: '4371',
-      name: 'Luciana A.',
-      time: '3:43pm',
-      price: '$41.74',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-1451e29d72',
-      title: '4370',
-      name: 'Bevin W.',
-      time: '6:43pm',
-      price: '$36.65',
-    },
-    {
       id: '584a0f-3da1-471f-bd96-145571e29d72',
       title: '4369',
       name: 'Laura R.',
@@ -90,19 +27,19 @@ function Item({ title }) {
 }
   
 
-export default class NewOrderList extends React.Component{
+export default class InProgressList extends React.Component{
   render(){
     return (
         
         <SafeAreaView style={styles.container}>
           <View style={styles.heading}>
-            <Text style={styles.headingText}>New Orders</Text>
+            <Text style={styles.headingText}>In Progress</Text>
           </View>
           <FlatList
             data={DATA}
             renderItem={({ item }) => (
               <TouchableOpacity style={styles.item} onPress={()=>{
-                  this.props.navigation.navigate('NewOrderDetailsPage');
+                  this.props.navigation.navigate('InProgressDetailsPage');
               }}>
                 <Text style={styles.listId}>{item.title}</Text>
                 <Text style={styles.listName}>{item.name}</Text>

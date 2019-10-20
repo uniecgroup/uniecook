@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import ReadyListPage from './ReadyListPage';
+import ReadyDetailsPage from './ReadyDetailsPage';
 
-export default class ReadyPage extends React.Component{
-    render(){
-        return(
-            <View style={styles.container}>
-                <Text style={styles.homeText}>Ready Page</Text>
-            </View>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+const ReadyNavigator = createStackNavigator({
+    ReadyListPage: {
+        screen: ReadyListPage,
+        navigationOptions: () => ({
+            header: null
+        })
     },
-    homeText: {
-        fontSize: 24,
-    }
+    ReadyDetailsPage: {
+        screen: ReadyDetailsPage,
+        navigationOptions: () => ({
+            title: 'Ready Order Details'
+        })
+    },
+},{
+    initialRouteName: 'ReadyListPage',
 });
+
+export default createAppContainer(ReadyNavigator);

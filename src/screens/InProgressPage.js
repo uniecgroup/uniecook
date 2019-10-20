@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import InProgressListPage from './InProgressListPage';
+import InProgressDetailsPage from './InProgressDetailsPage';
 
-export default class InProgressPage extends React.Component{
-    render(){
-        return(
-            <View style={styles.container}>
-                <Text style={styles.homeText}>IN Progress Page</Text>
-            </View>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+const InProgressNavigator = createStackNavigator({
+    InProgressListPage: {
+        screen: InProgressListPage,
+        navigationOptions: () => ({
+            header: null
+        })
     },
-    homeText: {
-        fontSize: 24,
-    }
+    InProgressDetailsPage: {
+        screen: InProgressDetailsPage,
+        navigationOptions: () => ({
+            title: 'In Progress Details'
+        })
+    },
+},{
+    initialRouteName: 'InProgressListPage',
 });
+
+export default createAppContainer(InProgressNavigator);
