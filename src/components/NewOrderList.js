@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#000',
     },
     item: {
-      backgroundColor: '#ffffff',
+      backgroundColor: '#3cb46e',
       paddingTop: 25,
       paddingBottom: 25,
       paddingLeft: 20,
@@ -136,20 +136,26 @@ const styles = StyleSheet.create({
     },
     listId:{
       flex: 1,
+      color: '#fff',
     },
     listName:{
       flex: 5,
       fontWeight: 'bold',
+      color: '#fff',
     },
     listPrice: {
       flex: 1,
+      color: '#fff',
+      fontWeight: 'bold',
     },
     listTime:{
       flex: 1,
       textAlign: 'right',
+      color: '#fff',
     },
     title: {
       fontSize: 14,
+      color: '#fff',
     },
     heading: {
       paddingBottom: 15,
@@ -157,7 +163,7 @@ const styles = StyleSheet.create({
       marginLeft: 80,
     },
     headingText: {
-      fontSize: 14,
+      fontSize: 20,
       fontWeight: '200',
       color: 'white',
     },

@@ -1,5 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Swipeout from 'react-native-swipeout';
 
 const DATA = [
     {
@@ -18,17 +20,28 @@ const DATA = [
     },
 ];
 
-function Item({ title }) {
-    return (
-      <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-      </View>
-    );
-}
-  
 
 export default class InProgressList extends React.Component{
-  render(){
+  render(){   
+    const swipeSettings = {
+      autoClose: true,
+      onClose: (secId, rowId, direction) =>{
+      },
+      onOpen: (secId, rowId, direction) => {
+      },
+      right: [
+        {
+          onPress: () => {
+
+          },
+          text: 'Ready?',
+          type: 'delete',
+          backgroundColor: '#ff9c00',
+        }
+      ],
+      rowId: this.props.index,
+      sectionId: 1
+    }
     return (
         
         <SafeAreaView style={styles.container}>
@@ -37,15 +50,15 @@ export default class InProgressList extends React.Component{
           </View>
           <FlatList
             data={DATA}
-            renderItem={({ item }) => (
-              <TouchableOpacity style={styles.item} onPress={()=>{
-                  this.props.navigation.navigate('InProgressDetailsPage');
-              }}>
-                <Text style={styles.listId}>{item.title}</Text>
-                <Text style={styles.listName}>{item.name}</Text>
-                <Text style={styles.listPrice}>{item.price}</Text>
-                <Text style={styles.listTime}>{item.time}</Text>
-              </TouchableOpacity>
+            renderItem={({ item, index }) => (
+              <Swipeout {...swipeSettings} style={styles.swipe}>
+                <View style={styles.item}>
+                    <Text style={styles.listId}>{item.title}</Text>
+                    <Text style={styles.listName}>{item.name}</Text>
+                    <Text style={styles.listTime}>{item.time}</Text>
+                    <MaterialCommunityIcons name='check-circle' size={24} color='#ccc' style={{marginLeft:10}}/>
+                </View>
+              </Swipeout>
             )}
             keyExtractor={item => item.id}
           />
@@ -59,15 +72,19 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#000',
     },
+    swipe: {
+      flex: 1,
+      marginLeft: 80,
+      marginRight: 80,
+      backgroundColor: 'white',
+      marginBottom: 10,
+    },
     item: {
-      backgroundColor: '#ffffff',
+      backgroundColor: '#fff',
       paddingTop: 25,
       paddingBottom: 25,
       paddingLeft: 20,
       paddingRight: 20,
-      marginBottom: 10,
-      marginLeft: 80,
-      marginRight: 80,
       flex: 1,
       flexDirection: 'row',
     },
@@ -83,6 +100,9 @@ const styles = StyleSheet.create({
     },
     listTime:{
       flex: 1,
+    },
+    listCheck: {
+      flex: 1,
       textAlign: 'right',
     },
     title: {
@@ -94,7 +114,7 @@ const styles = StyleSheet.create({
       marginLeft: 80,
     },
     headingText: {
-      fontSize: 14,
+      fontSize: 20,
       fontWeight: '200',
       color: 'white',
     },

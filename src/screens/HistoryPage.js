@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import HistoryListPage from './HistoryListPage';
+import HistoryDetailsPage from './HistoryDetailsPage';
 
-export default class HistoryPage extends React.Component{
-    render(){
-        return(
-            <View style={styles.container}>
-                <Text style={styles.homeText}>History Page</Text>
-            </View>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+const HistoryNavigator = createStackNavigator({
+    HistoryListPage: {
+        screen: HistoryListPage,
+        navigationOptions: () => ({
+            header: null
+        })
     },
-    homeText: {
-        fontSize: 24,
-    }
+    HistoryDetailsPage: {
+        screen: HistoryDetailsPage,
+        navigationOptions: () => ({
+            title: 'History Order Details'
+        })
+    },
+},{
+    initialRouteName: 'HistoryListPage',
 });
+
+export default createAppContainer(HistoryNavigator);

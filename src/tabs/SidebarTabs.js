@@ -2,32 +2,6 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const styles = StyleSheet.create({
-  header: { position: 'absolute', top: 0 },
-  tab: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    backgroundColor: 'transparent',
-    overflow: 'hidden',
-    flex: 1,
-  },
-  tabContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: 80,
-    backgroundColor: '#222',
-  },
-  tabIcon: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 28,
-  }
-});
-
 const SidebarTabs = ({ navigation, descriptors }) => {
   const { routes, index } = navigation.state;
 
@@ -56,5 +30,31 @@ const SidebarTabs = ({ navigation, descriptors }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  header: { position: 'absolute', top: 0 },
+  tab: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    backgroundColor: 'transparent',
+    overflow: 'hidden',
+    flex: 1,
+  },
+  tabContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: 80,
+    backgroundColor: '#222',
+  },
+  tabIcon: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 28,
+  }
+});
 
 export default SidebarTabs;
