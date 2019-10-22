@@ -1,40 +1,15 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {Component} from 'react';
+import {createAppContainer} from 'react-navigation'
 import AppNavigator from './src/navigation/AppNavigation';
 import { Provider } from "react-redux";
-import AppStore from './src/common/appStore'
+import store from './src/store'
 
-import { bindActionCreators } from 'redux';
+const AppNavigatorContainer = createAppContainer(AppNavigator);
 
-const mapDispatchToProps = dispatch => {
-  return {
-
-  }
-}
-
-const appStore = AppStore();
-
-class App extends React.Component {
-  mapStateToProps(state) {
-    return { user: state.user }
-  }
-
+export default class App extends React.Component {
   render() {
-    return (
-      <Provider store={appStore}>
-        <AppNavigator />
+    return <Provider store={store}>
+         <AppNavigatorContainer/>
       </Provider>
-    );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-export default App

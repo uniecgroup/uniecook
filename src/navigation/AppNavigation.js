@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createSidebarNavigator } from '../tabs';
-import { createStackNavigator } from 'react-navigation-stack';
-import NewOrderPage from '../screens/NewOrderPage';
+import NewOrderNavigator from './NewOrderNavigator';
 import InProgressPage from '../screens/InProgressPage';
 import ReadyPage from '../screens/ReadyPage';
 import HistoryPage from '../screens/HistoryPage';
 import SettingsPage from '../screens/SettingsPage';
 
-const AppNavigator = createSidebarNavigator(
+import {connect} from 'react-redux';
+import {createReactNavigationReduxMiddleware, createReduxContainer} from 'react-navigation-redux-helpers';
+
+export const rootCom = 'NewOrderPage';  //设置根路由
+
+export const AppNavigator = createSidebarNavigator(
     {
       NewOrderPage: {
-        screen: NewOrderPage,
+        screen: NewOrderNavigator,
         params: {
           icon: 'receipt',
         },
@@ -47,4 +48,15 @@ const AppNavigator = createSidebarNavigator(
     },
   );
 
-export default createAppContainer(AppNavigator);
+  export const middleware = createReactNavigationReduxMiddleware(
+    state => state.nav,
+    'root',
+);
+
+const AppWithNavigationState = createReduxContainer(AppNavigator, 'root');
+
+const mapStateToProps = state => ({
+  state: state.nav,
+});
+
+export default connect(mapStateToProps)(AppWithNavigationState);

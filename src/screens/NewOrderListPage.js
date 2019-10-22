@@ -1,23 +1,113 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
-import NewOrderList from '../components/NewOrderList';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, SafeAreaView, RefreshControl, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import actions from '../common/actions/index';
+import OrderItem from '../components/OrderItem';
 
-export default class NewOrderListPage extends React.Component{
-    render(){
-        return(
-            <NewOrderList navigation={this.props.navigation}/>
+//const URL = 'https://api.github.com/search/repositories?q=java';
+const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrders';
+//const QUERY_STR = '&sort=stars';
+const THEME_COLOR = 'red';
+
+class NewOrderTab extends React.Component {
+    constructor(props) {
+        super(props);
+        const { tabLabel } = this.props;
+        const { tabTitle } = this.props;
+        this.storeName = tabLabel;
+        this.tabTitle = tabTitle;
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    loadData() {
+        const { onRefreshNeworder } = this.props;
+        const url = this.genFetchUrl(this.storeName);
+
+        onRefreshNeworder(this.storeName, url);
+    }
+
+    _store() {
+        const { neworder } = this.props;
+        let store = neworder[this.storeName];    //动态获取state
+        if (!store) {
+            store = {
+                items: [],
+                isLoading: false,
+            }
+        }
+        return store;
+    }
+
+    genFetchUrl(key) {
+        //return URL + key + QUERY_STR;
+        return URL;
+    }
+
+    renderItem(data) {
+        const item = data.item;
+
+        return <OrderItem
+            item={item}
+            onSelect={() => {
+
+            }}
+        />
+    }
+
+    render() {
+        const { neworder } = this.props;
+        let store = this._store();
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.heading}>
+                    <Text style={styles.headingText}>{this.tabTitle}</Text>
+                </View>
+                <FlatList
+                    data={store.items}
+                    renderItem={data => this.renderItem(data)}
+                    keyExtractor={item => "" + item.order_id}
+                    refreshControl={
+                        <RefreshControl
+                            title={'Loading'}
+                            titleColor={THEME_COLOR}
+                            colors={[THEME_COLOR]}
+                            refreshing={store.isLoading}
+                            onRefresh={() => this.loadData()}
+                            tintColor={THEME_COLOR}
+                        />
+                    }
+                />
+            </SafeAreaView>
         )
     }
 }
 
+const mapStateToProps = state => ({
+    neworder: state.neworder
+});
+
+const mapDispatchToProps = dispatch => ({
+    onRefreshNeworder: (storeName, url) => dispatch(actions.onRefreshNeworder(storeName, url)),
+});
+
+export default NewOrderListPage = connect(mapStateToProps, mapDispatchToProps)(NewOrderTab);
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'black',
+        backgroundColor: '#000',
     },
-    homeText: {
-        fontSize: 24,
-    }
+    heading: {
+        paddingBottom: 15,
+        marginTop: 10,
+        marginLeft: 80,
+    },
+    headingText: {
+        fontSize: 20,
+        fontWeight: '200',
+        color: 'white',
+    },
 });

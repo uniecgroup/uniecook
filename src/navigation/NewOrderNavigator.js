@@ -1,16 +1,15 @@
-/*
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import NewOrderListPage from './NewOrderListPage';
-import NewOrderDetailsPage from './NewOrderDetailsPage';
+import NewOrderListPage from '../screens/NewOrderListPage';
+import NewOrderDetailsPage from '../screens/NewOrderDetailsPage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const NewOrderNavigator = createStackNavigator({
     NewOrderListPage: {
-        screen: NewOrderListPage,
+        screen: props => <NewOrderListPage {...props} tabTitle={'New Orders'} tabLabel={'neworder'} />,
         navigationOptions: () => ({
             header: null
         })
@@ -41,4 +40,3 @@ const styles = StyleSheet.create({
 });
 
 export default createAppContainer(NewOrderNavigator);
-*/
