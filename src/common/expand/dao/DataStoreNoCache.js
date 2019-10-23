@@ -27,10 +27,7 @@ export default class DataStoreNoCache {
                     'Content-Type': 'application/json'
                 },
                 mode: 'cors',
-                body: JSON.stringify({
-                    delivery_date_start: requestData.delivery_date_start,
-                    cooking_status: requestData.cooking_status,
-                })
+                body: JSON.stringify(requestData)
             })
                 .then((response) => {
                     if (response.ok) {

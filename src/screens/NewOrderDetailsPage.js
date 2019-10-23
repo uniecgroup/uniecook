@@ -1,8 +1,47 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { connect } from 'react-redux';
+import actions from '../common/actions/index';
 
-export default class NewOrderDetailsPage extends React.Component{
+const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrderDetail';
+
+class NewOrderDetailsPage extends React.Component{
+    constructor(props) {
+        super(props);
+        this.storeName = this.props.tabLabel;
+        this.item = this.props.item;
+    }
+
+    componentDidMount() {
+        this.loadOrderDetailData();
+    }
+
+    loadOrderDetailData() {
+        const { onLoadOrderDetail } = this.props;
+        const url = this.genFetchUrl(this.storeName);
+
+        onLoadOrderDetail(this.storeName, url, this.item.order_id);
+    }
+
+    _store() {
+        const { neworder } = this.props;
+        let store = neworder[this.storeName];    //动态获取state
+        if (!store) {
+            store = {
+                item: [],
+            }
+        }
+        return store;
+    }
+
+    genFetchUrl() {
+        return URL;
+    }
+
     render(){
+        const { neworder } = this.props;
+        let store = this._store();
+
         return(
             <View style={styles.container}>
                 <View style={styles.customerInfo}>
@@ -47,6 +86,16 @@ export default class NewOrderDetailsPage extends React.Component{
         )
     }
 }
+
+const mapStateToProps = state => ({
+    neworder: state.neworder
+});
+
+const mapDispatchToProps = dispatch => ({
+    onLoadOrderDetail: (storeName, url, order_id) => dispatch(actions.onLoadOrderDetail(storeName, url, order_id)),
+});
+
+export default NewOrderDetailsPage = connect(mapStateToProps, mapDispatchToProps)(NewOrderDetailsPage);
 
 const styles = StyleSheet.create({
     container: {

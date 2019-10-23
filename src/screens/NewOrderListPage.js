@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, SafeAreaView, RefreshControl, FlatList } from '
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import OrderItem from '../components/OrderItem';
+import { Audio } from 'expo-av';
+import NavigationUtil from '../navigation/NavigationUtil';
 
 //const URL = 'https://api.github.com/search/repositories?q=java';
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrders';
@@ -16,6 +18,10 @@ class NewOrderTab extends React.Component {
         const { tabTitle } = this.props;
         this.storeName = tabLabel;
         this.tabTitle = tabTitle;
+
+        setInterval(() => {
+            this.loadData();
+        }, 15000);
     }
 
     componentDidMount() {
@@ -36,9 +42,21 @@ class NewOrderTab extends React.Component {
             store = {
                 items: [],
                 isLoading: false,
+                playPromptMusic: false,
             }
         }
         return store;
+    }
+
+    async playPromptMusic() {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.unloadAsync();
+            await soundObject.loadAsync(require('../../assets/musics/neworder.mp3'));
+            await soundObject.playAsync();
+        } catch (error) {
+            console.log("Play new order prompt music was failed.");
+        }
     }
 
     genFetchUrl(key) {
@@ -48,11 +66,15 @@ class NewOrderTab extends React.Component {
 
     renderItem(data) {
         const item = data.item;
+        NavigationUtil.navigation = this.props.navigation;
 
         return <OrderItem
             item={item}
-            onSelect={() => {
-
+            onSelect={(item) => {
+                NavigationUtil.goPage({
+                    navigation: this.props.navigation,
+                    item: item,
+                }, 'NewOrderDetailsPage')
             }}
         />
     }
@@ -60,6 +82,9 @@ class NewOrderTab extends React.Component {
     render() {
         const { neworder } = this.props;
         let store = this._store();
+        if (store.playPromptMusic) {
+            this.playPromptMusic();
+        }
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.heading}>
