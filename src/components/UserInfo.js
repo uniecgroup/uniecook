@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     
     return {
-        changName: () => dispatch({type: ACTION_TYPES.USER_OPERATOINS.NEW_NAME, payload: {userName: "little lamb"} })
+        changName: () => dispatch({type: ACTION_TYPES.USER_OPERATIONS.NEW_NAME, payload: {userName: "little lamb"} }),
+        logOff: () => dispatch({type: ACTION_TYPES.USER_OPERATIONS.LOGGED_OFF, payload: {userName: "little lamb"} })
     }
   }
 
@@ -33,6 +34,7 @@ class UserInfo extends Component {
                 <Text>{this.props.user.userName}</Text>
                 <Text>{this.state.newUserName}</Text>
                 <Button title='Press Me to Change Name' onPress={()=>this.props.changName()}/>
+                <Button title='Log Off' onPress={()=>this.props.logOff()}/>
             </View>
 
         )
