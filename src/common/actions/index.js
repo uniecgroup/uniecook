@@ -1,4 +1,5 @@
-import {onRefreshNeworder, onLoadOrderDetail} from './neworder';
+import {onRefreshNeworder} from './neworder';
+import {onLoadOrderDetail} from './neworderdetail';
 
 export default {
     onRefreshNeworder,

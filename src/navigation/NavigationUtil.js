@@ -1,9 +1,7 @@
-import {Button, ScrollView, SafeAreaView} from 'react-native'
 
 export default class NavigationUtil{
     static goPage(params, page){
-        //const navigation = NavigationUtil.navigation;
-        const {navigation} = params;
+        const navigation = NavigationUtil.navigation;
         if(!navigation){
             console.log('NavigationUtil.navigation can not be null');
             return;

@@ -3,35 +3,35 @@ import Types from '../../common/actions/types';
 defaultState = {};
 
 /**
- *      neworder: {
- *          items:[],
+ *       neworderdetail: {
+ *          item:[],
  *          isLoading:false,
- *          playPropmtMusic: false,
+ *          canLoadData: false,
  *      }
  * @param state 
  * @param action 
  */
 export default function onAction(state = defaultState, action) {
     switch (action.type) {
-        case Types.NEWORDER_REFRESH_SUCCESS:
+        case Types.NEWORDERDETAIL_LOAD_SUCCESS:
             return {
                 ...state,
-                items: action.items,//原始数据
+                item: action.item,
                 isLoading: false,
-                playPromptMusic: action.playPromptMusic,
+                canLoadData: true,
             };
-        case Types.NEWORDER_REFRESH:
+        case Types.NEWORDERDETAIL_LOAD:
             return {
                 ...state,
                 isLoading: true,
-                playPromptMusic: false,
+                canLoadData: false,
             };
-        case Types.NEWORDER_REFRESH_FAIL:
+        case Types.NEWORDERDETAIL_LOAD_FAIL:
             return {
                 ...state,
                 isLoading: false,
-                playPromptMusic: false,
-            };
+                canLoadData: false,
+            };            
         default:
             return state;
     }

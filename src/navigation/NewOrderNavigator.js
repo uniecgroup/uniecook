@@ -17,7 +17,7 @@ const NewOrderNavigator = createStackNavigator({
     NewOrderDetailsPage: {
         screen: NewOrderDetailsPage,
         navigationOptions: () => ({
-            title: '4378 Hugh P. $29.95 Delivery 11:43am',
+            title: 'Order Details',
             headerRight: () => {
                 return(
                     <View style={styles.headerRightButton}>

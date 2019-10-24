@@ -22,6 +22,8 @@ class NewOrderTab extends React.Component {
         setInterval(() => {
             this.loadData();
         }, 15000);
+
+        console.disableYellowBox = true;
     }
 
     componentDidMount() {
@@ -37,7 +39,7 @@ class NewOrderTab extends React.Component {
 
     _store() {
         const { neworder } = this.props;
-        let store = neworder[this.storeName];    //动态获取state
+        let store = neworder;    //动态获取state
         if (!store) {
             store = {
                 items: [],
@@ -70,11 +72,11 @@ class NewOrderTab extends React.Component {
 
         return <OrderItem
             item={item}
-            onSelect={(item) => {
+            onSelect={(callback) => {
                 NavigationUtil.goPage({
                     tabLabel: 'neworderdetail',
-                    navigation: this.props.navigation,
                     item: item,
+                    callback,
                 }, 'NewOrderDetailsPage')
             }}
         />
