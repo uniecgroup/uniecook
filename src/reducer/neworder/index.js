@@ -3,10 +3,16 @@ import Types from '../../common/actions/types';
 defaultState = {};
 
 /**
- * neworder: {
- *      items:[],
- *      isLoading:false,
- *      playPropmtMusic: false,
+ * neworder {
+ *      neworder: {
+ *          items:[],
+ *          isLoading:false,
+ *          playPropmtMusic: false,
+ *      },
+ *       neworderdetail: {
+ *          item:[],
+ *          isLoading:false,
+ *      }
  * }
  * @param state 
  * @param action 

@@ -8,8 +8,11 @@ const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOr
 class NewOrderDetailsPage extends React.Component{
     constructor(props) {
         super(props);
+        this.params = this.props.navigation.state.params;
         this.storeName = this.props.tabLabel;
-        this.item = this.props.item;
+        const {item} = this.params;
+        this.order_id = item.order_id;
+        console.log("order_id="+item.order_id);
     }
 
     componentDidMount() {
@@ -20,7 +23,7 @@ class NewOrderDetailsPage extends React.Component{
         const { onLoadOrderDetail } = this.props;
         const url = this.genFetchUrl(this.storeName);
 
-        onLoadOrderDetail(this.storeName, url, this.item.order_id);
+        onLoadOrderDetail(this.storeName, url, this.order_id);
     }
 
     _store() {

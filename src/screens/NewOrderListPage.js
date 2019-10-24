@@ -72,6 +72,7 @@ class NewOrderTab extends React.Component {
             item={item}
             onSelect={(item) => {
                 NavigationUtil.goPage({
+                    tabLabel: 'neworderdetail',
                     navigation: this.props.navigation,
                     item: item,
                 }, 'NewOrderDetailsPage')
