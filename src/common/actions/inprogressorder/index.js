@@ -1,23 +1,24 @@
 import Types from '../types'
 import DataStoreNoCache from '../../expand/dao/DataStoreNoCache'
 
-export function onLoadOrderDetail(storeName, url, order_id) {
+export function onRefreshInProgressOrder(storeName, url) {
     return dispatch => {
-        dispatch({ type: Types.NEWORDERDETAIL_LOAD, storeName: storeName });
+        dispatch({ type: Types.INPROGRESSORDER_REFRESH, storeName: storeName });
         let dataStore = new DataStoreNoCache();
 
         let requestData = {
-            order_id: order_id
+            delivery_date_start: '',
+            cooking_status: '1'
         };
 
         dataStore.fetchDataPost(url, requestData)    //异步action与数据流
             .then(data => {
-                handleNewOrderDetailData(dispatch, storeName, data)
+                handleInProgressOrderData(dispatch, storeName, data)
             })
             .catch(error => {
                 console.log(error);
                 dispatch({
-                    type: Types.NEWORDERDETAIL_LOAD_FAIL,
+                    type: Types.INPROGRESSORDER_REFRESH_FAIL,
                     storeName,
                     error
                 });
@@ -25,16 +26,15 @@ export function onLoadOrderDetail(storeName, url, order_id) {
     }
 }
 
-function handleNewOrderDetailData(dispatch, storeName, data) {
-    let fixItem = [];
-    if (data && data.order) {
-        fixItem = data.order;
+function handleInProgressOrderData(dispatch, storeName, data) {
+    let fixItems = [];
+    if (data && data.orders) {
+        fixItems = data.orders;
     }
 
     dispatch({
-        type: Types.NEWORDERDETAIL_LOAD_SUCCESS,
-        item: fixItem,
+        type: Types.INPROGRESSORDER_REFRESH_SUCCESS,
+        items: fixItems,
         storeName,
     })
 }
-

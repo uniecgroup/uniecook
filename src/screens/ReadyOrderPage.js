@@ -2,24 +2,24 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import ReadyListPage from './ReadyListPage';
-import ReadyDetailsPage from './ReadyDetailsPage';
+import ReadyOrderListPage from './ReadyOrderListPage';
+import ReadyOrderDetailsPage from './ReadyOrderDetailsPage';
 
 const ReadyNavigator = createStackNavigator({
-    ReadyListPage: {
-        screen: ReadyListPage,
+    ReadyOrderListPage: {
+        screen: ReadyOrderListPage,
         navigationOptions: () => ({
             header: null
         })
     },
-    ReadyDetailsPage: {
-        screen: ReadyDetailsPage,
+    ReadyOrderDetailsPage: {
+        screen: ReadyOrderDetailsPage,
         navigationOptions: () => ({
             title: 'Ready Order Details'
         })
     },
 },{
-    initialRouteName: 'ReadyListPage',
+    initialRouteName: 'ReadyOrderListPage',
 });
 
 export default createAppContainer(ReadyNavigator);

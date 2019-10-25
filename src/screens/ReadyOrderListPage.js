@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
-import ReadyList from '../components/ReadyList';
+import ReadyOrderList from '../components/ReadyOrderList';
 
-export default class ReadyListPage extends React.Component{
+export default class ReadyOrderListPage extends React.Component{
     render(){
         return(
             <ReadyList navigation={this.props.navigation}/>

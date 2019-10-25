@@ -2,6 +2,8 @@ import {combineReducers} from 'redux'
 import user from './user'
 import neworder from './neworder'
 import neworderdetail from './neworderdetail'
+import inprogressorder from './inprogressorder'
+import inprogressorderdetail from './inprogressorderdetail'
 import {rootCom, AppNavigator} from '../navigation/AppNavigation';
 
 //1.指定默认navigator state
@@ -20,6 +22,8 @@ const index = combineReducers({
     nav: navReducer,
     neworder: neworder,
     neworderdetail: neworderdetail,
+    inprogressorder: inprogressorder,
+    inprogressorderdetail: inprogressorderdetail,
     user: user,
 });
 

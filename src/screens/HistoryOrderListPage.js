@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import HistoryList from '../components/HistoryOrderList';
 
-export default class InProgressDetailsPage extends React.Component{
+export default class HistoryListPage extends React.Component{
     render(){
         return(
-            <View style={styles.container}>
-                <Text style={styles.homeText}>In Progress Details Page</Text>
-            </View>
+            <HistoryList navigation={this.props.navigation}/>
         )
     }
 }

@@ -1,9 +1,9 @@
 import Types from '../types'
 import DataStoreNoCache from '../../expand/dao/DataStoreNoCache'
 
-export function onLoadOrderDetail(storeName, url, order_id) {
+export function onLoadInProgressOrderDetail(storeName, url, order_id) {
     return dispatch => {
-        dispatch({ type: Types.NEWORDERDETAIL_LOAD, storeName: storeName });
+        dispatch({ type: Types.INPROGRESSORDERDETAIL_LOAD, storeName: storeName });
         let dataStore = new DataStoreNoCache();
 
         let requestData = {
@@ -12,12 +12,12 @@ export function onLoadOrderDetail(storeName, url, order_id) {
 
         dataStore.fetchDataPost(url, requestData)    //异步action与数据流
             .then(data => {
-                handleNewOrderDetailData(dispatch, storeName, data)
+                handleInProgressOrderDetailData(dispatch, storeName, data)
             })
             .catch(error => {
                 console.log(error);
                 dispatch({
-                    type: Types.NEWORDERDETAIL_LOAD_FAIL,
+                    type: Types.INPROGRESSORDERDETAIL_LOAD_FAIL,
                     storeName,
                     error
                 });
@@ -25,14 +25,14 @@ export function onLoadOrderDetail(storeName, url, order_id) {
     }
 }
 
-function handleNewOrderDetailData(dispatch, storeName, data) {
+function handleInProgressOrderDetailData(dispatch, storeName, data) {
     let fixItem = [];
     if (data && data.order) {
         fixItem = data.order;
     }
 
     dispatch({
-        type: Types.NEWORDERDETAIL_LOAD_SUCCESS,
+        type: Types.INPROGRESSORDERDETAIL_LOAD_SUCCESS,
         item: fixItem,
         storeName,
     })

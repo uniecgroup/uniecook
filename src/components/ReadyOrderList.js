@@ -78,7 +78,7 @@ function Item({ title }) {
 }
   
 
-export default class ReadyList extends React.Component{
+export default class ReadyOrderList extends React.Component{
   render(){
     return (
         

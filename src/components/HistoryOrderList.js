@@ -90,7 +90,7 @@ function Item({ title }) {
 }
   
 
-export default class HistoryList extends React.Component{
+export default class HistoryOrderList extends React.Component{
   render(){
     return (
         

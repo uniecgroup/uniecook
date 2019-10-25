@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import HistoryListPage from './HistoryListPage';
-import HistoryDetailsPage from './HistoryDetailsPage';
+import HistoryListPage from './HistoryOrderListPage';
+import HistoryDetailsPage from './HistoryOrderDetailsPage';
 
 const HistoryNavigator = createStackNavigator({
     HistoryListPage: {

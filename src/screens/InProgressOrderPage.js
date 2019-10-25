@@ -1,3 +1,4 @@
+/*
 import React, {Component} from 'react';
 
 import { createAppContainer } from 'react-navigation';
@@ -22,4 +23,4 @@ const InProgressNavigator = createStackNavigator({
     initialRouteName: 'InProgressListPage',
 });
 
-export default createAppContainer(InProgressNavigator);
+export default createAppContainer(InProgressNavigator);*/

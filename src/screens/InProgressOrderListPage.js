@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, RefreshControl, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
-import OrderItem from '../components/OrderItem';
-import { Audio } from 'expo-av';
+import InProgressOrderItem from '../components/InProgressOrderItem';
 import NavigationUtil from '../navigation/NavigationUtil';
 
 //const URL = 'https://api.github.com/search/repositories?q=java';
@@ -11,7 +10,7 @@ const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOr
 //const QUERY_STR = '&sort=stars';
 const THEME_COLOR = 'red';
 
-class NewOrderTab extends React.Component {
+class InProgressOrderTab extends React.Component {
     constructor(props) {
         super(props);
         const { tabLabel } = this.props;
@@ -19,11 +18,7 @@ class NewOrderTab extends React.Component {
         this.storeName = tabLabel;
         this.tabTitle = tabTitle;
 
-        setInterval(() => {
-            this.loadData();
-        }, 60000);
-
-        console.disableYellowBox = true;
+        console.disableYellowBox = true;
     }
 
     componentDidMount() {
@@ -31,34 +26,22 @@ class NewOrderTab extends React.Component {
     }
 
     loadData() {
-        const { onRefreshNeworder } = this.props;
+        const { onRefreshInProgressOrder } = this.props;
         const url = this.genFetchUrl(this.storeName);
 
-        onRefreshNeworder(this.storeName, url);
+        onRefreshInProgressOrder(this.storeName, url);
     }
 
     _store() {
-        const { neworder } = this.props;
-        let store = neworder;    //动态获取state
+        const { inprogressorder } = this.props;
+        let store = inprogressorder;    //动态获取state
         if (!store) {
             store = {
                 items: [],
                 isLoading: false,
-                playPromptMusic: false,
             }
         }
         return store;
-    }
-
-    async playPromptMusic() {
-        const soundObject = new Audio.Sound();
-        try {
-            await soundObject.unloadAsync();
-            await soundObject.loadAsync(require('../../assets/musics/neworder.mp3'));
-            await soundObject.playAsync();
-        } catch (error) {
-            console.log("Play new order prompt music was failed.");
-        }
     }
 
     genFetchUrl(key) {
@@ -70,24 +53,22 @@ class NewOrderTab extends React.Component {
         const item = data.item;
         NavigationUtil.navigation = this.props.navigation;
 
-        return <OrderItem
+        return <InProgressOrderItem
             item={item}
             onSelect={(callback) => {
                 NavigationUtil.goPage({
-                    tabLabel: 'neworderdetail',
+                    tabLabel: 'inprogressorder',
                     item: item,
                     callback,
-                }, 'NewOrderDetailsPage')
+                }, 'InProgressOrderDetailsPage')
             }}
         />
     }
 
     render() {
-        const { neworder } = this.props;
+        const { inprogressorder } = this.props;
         let store = this._store();
-        if (store.playPromptMusic) {
-            this.playPromptMusic();
-        }
+
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.heading}>
@@ -114,19 +95,22 @@ class NewOrderTab extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    neworder: state.neworder
+    inprogressorder: state.inprogressorder
 });
 
 const mapDispatchToProps = dispatch => ({
-    onRefreshNeworder: (storeName, url) => dispatch(actions.onRefreshNeworder(storeName, url)),
+    onRefreshInProgressOrder: (storeName, url) => dispatch(actions.onRefreshInProgressOrder(storeName, url)),
 });
 
-export default NewOrderListPage = connect(mapStateToProps, mapDispatchToProps)(NewOrderTab);
+export default InProgressOrderListPage = connect(mapStateToProps, mapDispatchToProps)(InProgressOrderTab);
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#000',
+    },
+    title: {
+        fontSize: 14,
     },
     heading: {
         paddingBottom: 15,
