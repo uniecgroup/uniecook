@@ -1,8 +1,8 @@
 import { createSidebarNavigator } from '../tabs';
 import NewOrderNavigator from './NewOrderNavigator';
 import InProgressOrderNavigator from './InProgressOrderNavigator';
-import ReadyOrderPage from '../screens/ReadyOrderPage';
-import HistoryOrderPage from '../screens/HistoryOrderPage';
+import ReadyOrderNavigator from './ReadyOrderNavigator';
+import HistoryOrderNavigator from './HistoryOrderNavigator';
 import SettingsPage from '../screens/SettingsPage';
 
 import {connect} from 'react-redux';
@@ -25,13 +25,13 @@ export const AppNavigator = createSidebarNavigator(
           }
       },
       ReadyOrderPage : {
-          screen: ReadyOrderPage,
+          screen: ReadyOrderNavigator,
             params: {
                 icon: 'shopping-bag',
           }
       },
       HistoryOrderPage : {
-          screen: HistoryOrderPage,
+          screen: HistoryOrderNavigator,
             params: {
                 icon: 'history',
             }

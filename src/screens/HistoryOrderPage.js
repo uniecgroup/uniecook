@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+/*import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -22,4 +22,4 @@ const HistoryNavigator = createStackNavigator({
     initialRouteName: 'HistoryListPage',
 });
 
-export default createAppContainer(HistoryNavigator);
+export default createAppContainer(HistoryNavigator);*/

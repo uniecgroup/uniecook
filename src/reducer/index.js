@@ -4,6 +4,10 @@ import neworder from './neworder'
 import neworderdetail from './neworderdetail'
 import inprogressorder from './inprogressorder'
 import inprogressorderdetail from './inprogressorderdetail'
+import readyorder from './readyorder'
+import readyorderdetail from './readyorderdetail'
+import historyorder from './historyorder'
+import historyorderdetail from './historyorderdetail'
 import {rootCom, AppNavigator} from '../navigation/AppNavigation';
 
 //1.指定默认navigator state
@@ -24,6 +28,10 @@ const index = combineReducers({
     neworderdetail: neworderdetail,
     inprogressorder: inprogressorder,
     inprogressorderdetail: inprogressorderdetail,
+    readyorder: readyorder,
+    readyorderdetail: readyorderdetail,
+    historyorder: historyorder,
+    historyorderdetail: historyorderdetail,
     user: user,
 });
 
