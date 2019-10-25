@@ -2,22 +2,21 @@ import React from 'react';
 import { View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import NewOrderListPage from '../screens/NewOrderListPage';
-import NewOrderDetailsPage from '../screens/NewOrderDetailsPage';
+import InProgressListPage from '../screens/InProgressListPage';
+import InProgressDetailsPage from '../screens/InProgressDetailsPage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
-const NewOrderNavigator = createStackNavigator({
-    NewOrderListPage: {
-        screen: props => <NewOrderListPage {...props} tabTitle={'New Orders'} tabLabel={'neworder'} />,
+const InProgressNavigator = createStackNavigator({
+    InProgressListPage: {
+        screen: props => <InProgressListPage {...props} tabTitle={'In Processing'} tabLabel={'processingorder'} />,
         navigationOptions: () => ({
             header: null
         })
     },
-    NewOrderDetailsPage: {
-        screen: NewOrderDetailsPage,
+    InProgressDetailsPage: {
+        screen: InProgressDetailsPage,
         navigationOptions: () => ({
-            title: 'Order Details',
+            title: 'In Progress Details',
             headerRight: () => {
                 return(
                     <View style={styles.headerRightButton}>
@@ -29,7 +28,7 @@ const NewOrderNavigator = createStackNavigator({
         })
     },
 },{
-    initialRouteName: 'NewOrderListPage',
+    initialRouteName: 'InProgressListPage',
 });
 
-export default createAppContainer(NewOrderNavigator);
+export default createAppContainer(InProgressNavigator);

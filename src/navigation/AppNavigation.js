@@ -1,6 +1,6 @@
 import { createSidebarNavigator } from '../tabs';
 import NewOrderNavigator from './NewOrderNavigator';
-import InProgressPage from '../screens/InProgressPage';
+import InProgressNavigator from './InProgressNavigator';
 import ReadyPage from '../screens/ReadyPage';
 import HistoryPage from '../screens/HistoryPage';
 import SettingsPage from '../screens/SettingsPage';
@@ -19,7 +19,7 @@ export const AppNavigator = createSidebarNavigator(
         },
       },
       InProgressPage : {
-        screen: InProgressPage,
+        screen: InProgressNavigator,
           params: {
               icon: 'paypal',
           }
