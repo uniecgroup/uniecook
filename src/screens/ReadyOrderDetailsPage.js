@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
-import { StyleSheet,  View, Button } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import ReadyOrderDetail from '../components/ReadyOrderDetail';
 
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrderDetail';
 
-class ReadyOrderDetailsPage extends React.Component{
+class ReadyOrderDetailsPage extends React.Component {
     constructor(props) {
         super(props);
         this.params = this.props.navigation.state.params;
-        const {item, tabLabel} = this.params;
+        const { item, tabLabel } = this.params;
         this.storeName = tabLabel;
-        this.order_id = item.order_id;       
+        this.order_id = item.order_id;
     }
 
     componentDidMount() {
@@ -43,11 +43,11 @@ class ReadyOrderDetailsPage extends React.Component{
         return URL;
     }
 
-    render(){
+    render() {
         const { readyorderdetail } = this.props;
         let store = this._store();
 
-        return(
+        return (
             store.canLoadData ? <ReadyOrderDetail item={store.item} /> : <View style={styles.container}></View>
         )
     }

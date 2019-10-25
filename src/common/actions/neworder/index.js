@@ -34,7 +34,7 @@ function handleNewOrderData(dispatch, storeName, data) {
     }
 
     let playPromptMusic = false;
-    if(data && data.new_order_reminder) {
+    if (data && data.new_order_reminder) {
         playPromptMusic = true;
     }
 

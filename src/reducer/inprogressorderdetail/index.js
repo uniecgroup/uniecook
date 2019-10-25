@@ -31,7 +31,7 @@ export default function onAction(state = defaultState, action) {
                 ...state,
                 isLoading: false,
                 canLoadData: false,
-            };            
+            };
         default:
             return state;
     }

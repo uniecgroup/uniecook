@@ -5,7 +5,7 @@ import DataStoreNoCache from '../../expand/dao/DataStoreNoCache'
 export default function onLogonSuccess(userName, storeId, apiToken) {
     return dispatch => {
         dispatch({
-            type: ACTION_TYPES.USER_OPERATOINS.LOGGED_ON, 
+            type: ACTION_TYPES.USER_OPERATOINS.LOGGED_ON,
             payload: {
                 userName: userName,
                 storeId: storeId,

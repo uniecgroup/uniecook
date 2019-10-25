@@ -23,7 +23,7 @@ class NewOrderTab extends React.Component {
             this.loadData();
         }, 60000);
 
-        console.disableYellowBox = true;
+        console.disableYellowBox = true;
     }
 
     componentDidMount() {

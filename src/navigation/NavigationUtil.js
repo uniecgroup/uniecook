@@ -1,18 +1,18 @@
 
-export default class NavigationUtil{
-    static goPage(params, page){
+export default class NavigationUtil {
+    static goPage(params, page) {
         const navigation = NavigationUtil.navigation;
-        if(!navigation){
+        if (!navigation) {
             console.log('NavigationUtil.navigation can not be null');
             return;
         }
-        navigation.navigate(page,{...params});
+        navigation.navigate(page, { ...params });
     }
-    static goBack(navigation){
+    static goBack(navigation) {
         navigation.goBack();
     }
-    static resetToHomePage(params){
-        const {navigation} = params;
+    static resetToHomePage(params) {
+        const { navigation } = params;
         navigation.navigate('Main');
     }
 }

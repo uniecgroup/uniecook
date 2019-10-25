@@ -24,13 +24,13 @@ export default function onAction(state = initialState, action) {
             };
             break;
         case ACTION_TYPES.USER_OPERATIONS.LOGGED_OFF:
-                    return {
-                        ...state,
-                        userName: '',
-                        apiToken: '',
-                        userLoggedOn: false
-                    };
-                    break;            
+            return {
+                ...state,
+                userName: '',
+                apiToken: '',
+                userLoggedOn: false
+            };
+            break;
         default:
             return state;
     }

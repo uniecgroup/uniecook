@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
-import { StyleSheet,  View, Button } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import HistoryOrderDetail from '../components/HistoryOrderDetail';
 
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrderDetail';
 
-class HistoryOrderDetailsPage extends React.Component{
+class HistoryOrderDetailsPage extends React.Component {
     constructor(props) {
         super(props);
         this.params = this.props.navigation.state.params;
-        const {item, tabLabel} = this.params;
+        const { item, tabLabel } = this.params;
         this.storeName = tabLabel;
-        this.order_id = item.order_id;       
+        this.order_id = item.order_id;
     }
 
     componentDidMount() {
@@ -43,11 +43,11 @@ class HistoryOrderDetailsPage extends React.Component{
         return URL;
     }
 
-    render(){
+    render() {
         const { historyorderdetail } = this.props;
         let store = this._store();
 
-        return(
+        return (
             store.canLoadData ? <HistoryOrderDetail item={store.item} /> : <View style={styles.container}></View>
         )
     }

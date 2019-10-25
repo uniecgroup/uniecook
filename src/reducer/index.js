@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import user from './user'
 import neworder from './neworder'
 import neworderdetail from './neworderdetail'
@@ -8,7 +8,7 @@ import readyorder from './readyorder'
 import readyorderdetail from './readyorderdetail'
 import historyorder from './historyorder'
 import historyorderdetail from './historyorderdetail'
-import {rootCom, AppNavigator} from '../navigation/AppNavigation';
+import { rootCom, AppNavigator } from '../navigation/AppNavigation';
 
 //1.指定默认navigator state
 const navState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams(rootCom))
