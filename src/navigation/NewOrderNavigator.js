@@ -32,4 +32,11 @@ const NewOrderNavigator = createStackNavigator({
     initialRouteName: 'NewOrderListPage',
 });
 
+const styles = StyleSheet.create({
+    headerRightButton: {
+        flex: 1,
+        flexDirection: 'row',
+    }
+});
+
 export default createAppContainer(NewOrderNavigator);
