@@ -45,20 +45,10 @@ export default class InProgressOrderDetail extends React.Component {
 
                         <View style={styles.toDoButtons}>
                             <TouchableOpacity
-                                style={styles.cancelOrderButton}
-                                onPress={() => {
-
-                                }}
+                                style={styles.cookDoneButton}
+                                onPress={this.props.onCookDone}
                             >
-                                <Text style={styles.cancelOrderButtonText}>Cancel Order</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.cookNowButton}
-                                onPress={() => {
-                                    
-                                }}
-                            >
-                                <Text style={styles.cookNowButtonText}>Cook Now</Text>
+                                <Text style={styles.cookDoneButtonText}>Food is Done</Text>
                             </TouchableOpacity>
                         </View>
                         
@@ -187,7 +177,7 @@ const styles = StyleSheet.create({
         paddingLeft: 35,
         paddingRight: 35,
     },
-    cookNowButton: {
+    cookDoneButton: {
         backgroundColor: '#3cb46e',
         borderRadius: 3,
         paddingTop: 15,
@@ -195,7 +185,7 @@ const styles = StyleSheet.create({
         paddingLeft: 35,
         paddingRight: 35,
     },
-    cookNowButtonText: {
+    cookDoneButtonText: {
         color: '#fff',
         fontWeight: 'bold',
     }

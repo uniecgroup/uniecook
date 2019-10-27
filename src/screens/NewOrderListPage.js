@@ -28,6 +28,15 @@ class NewOrderTab extends React.Component {
 
     componentDidMount() {
         this.loadData();
+
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.loadData();
+        });
+    }
+
+    componentWillUnmount() {
+        // Remove the event listener before removing the screen from the stack
+        this.focusListener.remove();
     }
 
     loadData() {

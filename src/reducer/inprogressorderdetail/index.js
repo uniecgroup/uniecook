@@ -25,12 +25,28 @@ export default function onAction(state = defaultState, action) {
                 ...state,
                 isLoading: true,
                 canLoadData: false,
+                isOrderStatusChanged: false,
             };
         case Types.INPROGRESSORDERDETAIL_LOAD_FAIL:
             return {
                 ...state,
                 isLoading: false,
                 canLoadData: false,
+            };
+        case Types.CHANGEORDER_TO_COOKDONE_SUCCESS:
+            return {
+                ...state,
+                isOrderStatusChanged: true,
+            };
+        case Types.CHANGEORDER_TO_COOKDONE:
+            return {
+                ...state,
+                isOrderStatusChanged: false,
+            };
+        case Types.CHANGEORDER_TO_COOKDONE_FAIL:
+            return {
+                ...state,
+                isOrderStatusChanged: false,
             };
         default:
             return state;

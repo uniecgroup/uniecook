@@ -5,9 +5,8 @@ import actions from '../common/actions/index';
 import ReadyOrderItem from '../components/ReadyOrderItem';
 import NavigationUtil from '../navigation/NavigationUtil';
 
-//const URL = 'https://api.github.com/search/repositories?q=java';
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrders';
-//const QUERY_STR = '&sort=stars';
+
 const THEME_COLOR = 'red';
 
 class ReadyOrderTab extends React.Component {
@@ -23,8 +22,17 @@ class ReadyOrderTab extends React.Component {
 
     componentDidMount() {
         this.loadData();
+
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.loadData();
+        });
     }
 
+    componentWillUnmount() {
+        // Remove the event listener before removing the screen from the stack
+        this.focusListener.remove();
+    }
+    
     loadData() {
         const { onRefreshReadyOrder } = this.props;
         const url = this.genFetchUrl(this.storeName);

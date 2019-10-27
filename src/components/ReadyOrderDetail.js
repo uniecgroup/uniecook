@@ -4,9 +4,14 @@ import { Ionicons, EvilIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class ReadyOrderDetail extends React.Component {
-      render() {
-        const {item} = this.props;
+    render() {
+        const { item } = this.props;
         if (!item || !item.order_id) return null;
+
+        var button_delivery = "Picked Up";
+        if (item.delivery_code == "local_delivery") {
+            button_delivery = "Delivery Now";
+        }
 
         return (
             <ScrollView style={styles.container}>
@@ -21,7 +26,7 @@ export default class ReadyOrderDetail extends React.Component {
                 {item.products.map((product, index, products) => {
                     return <View style={styles.dishList}>
                         <Text style={styles.dishTitle}>{product.name}</Text>
-                        <Text style={styles.dishQty}><EvilIcons name={'close'}/> {product.quantity}</Text>
+                        <Text style={styles.dishQty}><EvilIcons name={'close'} /> {product.quantity}</Text>
                         <Text style={styles.dishPrice}>{product.price}</Text>
                     </View>
                 })}
@@ -35,33 +40,23 @@ export default class ReadyOrderDetail extends React.Component {
                         <Text>Payment Method: {item.payment_method}</Text>
                     </View>
                     <View style={styles.checkOutRight}>
-                        
+
                         {item.totals.map((total, index, totals) => {
                             return <View style={styles.totalView}>
-                                <Text style={styles.title}>{total.title}</Text> 
+                                <Text style={styles.title}>{total.title}</Text>
                                 <Text style={styles.amount}>{total.text}</Text>
                             </View>
                         })}
 
                         <View style={styles.toDoButtons}>
                             <TouchableOpacity
-                                style={styles.cancelOrderButton}
-                                onPress={() => {
-
-                                }}
-                            >
-                                <Text style={styles.cancelOrderButtonText}>Cancel Order</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
                                 style={styles.cookNowButton}
-                                onPress={() => {
-                                    
-                                }}
+                                onPress={this.props.onDeliveryNow}
                             >
-                                <Text style={styles.cookNowButtonText}>Cook Now</Text>
+                                <Text style={styles.cookNowButtonText}>{button_delivery}</Text>
                             </TouchableOpacity>
                         </View>
-                        
+
                     </View>
                 </View>
             </ScrollView>
@@ -76,7 +71,7 @@ const styles = StyleSheet.create({
     },
     orderInfo: {
         padding: 20,
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
     },
     orderInfoText: {

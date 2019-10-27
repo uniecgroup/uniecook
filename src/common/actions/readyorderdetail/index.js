@@ -38,3 +38,41 @@ function handleReadyOrderDetailData(dispatch, storeName, data) {
     })
 }
 
+export function onChangeOrderToDelivering(storeName, url, order_id) {
+    return dispatch => {
+        dispatch({ type: Types.CHANGEORDER_TO_DELIVERYING, storeName: storeName });
+        let dataStore = new DataStoreNoCache();
+
+        let requestData = {
+            order_id: order_id
+        };
+
+        dataStore.fetchDataPost(url, requestData)    //异步action与数据流
+            .then(data => {
+                handleChangeOrderToDeliveryingData(dispatch, storeName, data)
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch({
+                    type: Types.CHANGEORDER_TO_DELIVERYING_FAIL,
+                    storeName,
+                    error
+                });
+            })
+    }
+}
+
+function handleChangeOrderToDeliveryingData(dispatch, storeName, data) {
+    if (data && data.error) {
+        dispatch({
+            type: Types.CHANGEORDER_TO_DELIVERYING_FAIL,
+            storeName,
+            error
+        });
+    }
+
+    dispatch({
+        type: Types.CHANGEORDER_TO_DELIVERYING_SUCCESS,
+        storeName,
+    })
+}

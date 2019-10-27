@@ -8,6 +8,12 @@ export default class ReadyOrderItem extends React.Component {
         const { item } = this.props;
         if (!item || !item.order_id) return null;
 
+        var status_color = "#ccc";
+
+        if(item.delivery_status!=='0') {
+           status_color = "#3cb46e";
+        }
+
         const swipeSettings = {
             autoClose: true,
             onClose: (secId, rowId, direction) => {
@@ -33,7 +39,7 @@ export default class ReadyOrderItem extends React.Component {
                     <Text style={styles.listId}>{item.order_id}</Text>
                     <Text style={styles.listName}>{item.customer}</Text>
                     <Text style={styles.listTime}>{item.remaining_minutes}</Text>
-                    <MaterialCommunityIcons name='check-circle' size={24} color='#ccc' style={{ marginLeft: 10 }} />
+                    <MaterialCommunityIcons name='check-circle' size={24} color={status_color} style={{ marginLeft: 10 }} />
                 </TouchableOpacity>
             </Swipeout>
 
