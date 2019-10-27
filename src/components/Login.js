@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, FlatList, StyleSheet, Text, TouchableOpacity, Button } from 'react-native';
+import { View, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, Button, Alert } from 'react-native';
 import loginSuccessAction from '../common/actions/login'
 import { connect } from 'react-redux'
 import ACTION_TYPES from '../common/actions/types'
+import StringHelper from '../common/i18n/index';
 
 const mapStateToProps = (state) => {
     return {
@@ -10,37 +11,153 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    
-    return {
-        login: () => dispatch({type: ACTION_TYPES.USER_OPERATIONS.LOGGED_ON, 
-            payload: {
-                 userLoggedOn: true,
-                 userName: 'Logged On User',
-                 apiToken: 'adfsdfsdfds',                 
-            } 
-        })
-    }
-  }
-
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            storeId: '',
+            userName: '',
+            password: '',
+
+            storeIdError: null,
+            userNameError: null,
+            passwordError: null,
+        }
+    }
+
     render() {
         return (
-            <View >
-                <Text>This is login screen</Text>
-                <Text>User Name: {this.props.user.userName}</Text>
-                <Button onPress={()=>this.props.login()} title="Login"></Button>
+            <View style={styles.container}>
+                <View style={styles.formControl}>
+                    <View style={styles.labeLine}>
+                        {!!this.state.storeIdError && (
+                            <Text style={{ color: "red" }}>{this.state.storeIdError}</Text>
+                        )}
+                        <Text style={styles.label}>{StringHelper.getString('login', 'storeid')}</Text>
+                    </View>
+                    <TextInput style={styles.input} keyboardType="numeric" maxLength={4} onChangeText={storeId => this.setState({ storeId: storeId, storeIdError: null })} />
+                </View>
+                <View style={styles.formControl}>
+                    <View style={styles.labeLine}>
+                        {!!this.state.userNameError && (
+                            <Text style={{ color: "red" }}>{this.state.userNameError}</Text>
+                        )}  
+                        <Text style={styles.label}>{StringHelper.getString('login', 'username')}</Text>
+                    </View>                    
+                    <TextInput style={styles.input} onChangeText={userName => this.setState({ userName, userNameError:null })} />
+                </View>
+                <View style={styles.formControl}>
+                   <View style={styles.labeLine}>
+                   {!!this.state.passwordError && (
+                        <Text style={styles.error}>{this.state.passwordError}</Text>
+                    )}
+                    <Text style={styles.label}>{StringHelper.getString('login', 'password')}</Text>
+                   </View>
+                    <TextInput secureTextEntry={true} style={styles.input} onChangeText={password => this.setState({ password, passwordError: null })} />
+                </View>
+                <View style={styles.formControl}>
+                    <Button onPress={() => this.submit()} title="Login"></Button>
+                </View>
             </View>
         )
+    }
+
+    submit() {
+        // validation
+        const txt_storeIdEmpty = '* ';
+        const txt_userNameEmpty = '* ';
+        const txt_passwordEmpty = '* ';
+
+        let hasErrors = false;
+
+        if (this.state.storeId.trim() === "") {
+            hasErrors = true;
+            this.setState(() => ({ storeIdError: txt_storeIdEmpty }));
+        } else {
+            this.setState(() => ({ storeIdError: null }));
+        }
+
+        if (this.state.userName.trim() === "") {
+            hasErrors = true;
+            this.setState(() => ({ userNameError: txt_userNameEmpty }));
+        } else {
+            this.setState(() => ({ userNameError: null }));
+        }
+
+        if (this.state.password.trim() === "") {
+            hasErrors = true;
+            this.setState(() => ({ passwordError: txt_passwordEmpty }));
+        } else {
+            this.setState(() => ({ passwordError: null }));
+        }
+
+        if (!hasErrors) {
+            // Alert.alert(
+            //     "Please Correct",
+            //     errorMessage,
+            //     [
+            //         {
+            //             text: "Cancel",
+            //             onPress: () => console.log("Cancel Pressed"),
+            //             style: "cancel"
+            //         },
+            //         { text: "OK", onPress: () => console.log("OK Pressed") }
+            //     ],
+            //     { cancelable: false }
+            // );
+            // return;
+
+            // call backend
+            this.props.dispatch({
+                type: ACTION_TYPES.USER_OPERATIONS.LOGGED_ON,
+                payload: {
+                    userLoggedOn: true,
+                    userName: 'Logged On User',
+                    apiToken: 'adfsdfsdfds',
+                }
+            })
+        }
     }
 }
 
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#000F',
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+        width: '40%',
+        height: '50%',
+    },
+
+    form: {
+        margin: 6
+    },
+    formControl: {
+        paddingTop: 10,
+        width: '100%'
+    },
+    label: {
+        // fontFamily: 'open-sans-bold',
+        fontSize: 14,        
+        marginVertical: 0
+    },
+    input: {
+        paddingHorizontal: 2,
+        paddingVertical: 5,
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 1,
+        color: 'blue'
+    },
+    error: {
+        color: 'red',
+        fontSize: 16
+    },
+    labeLine: {
+        display: 'flex',
+        flexDirection: 'row',
     }
+
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps)(Login)

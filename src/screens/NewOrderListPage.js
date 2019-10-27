@@ -12,22 +12,27 @@ const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOr
 const THEME_COLOR = 'red';
 
 class NewOrderTab extends React.Component {
+    intervalID;
+
     constructor(props) {
         super(props);
         const { tabLabel } = this.props;
         const { tabTitle } = this.props;
         this.storeName = tabLabel;
         this.tabTitle = tabTitle;
-
-        setInterval(() => {
-            this.loadData();
-        }, 60000);
-
         console.disableYellowBox = true;
     }
 
     componentDidMount() {
+        clearInterval(this.intervalID);
+        intervalID = setInterval(() => {
+            this.loadData();
+        }, 60000);        
         this.loadData();
+    }
+
+    componentWillUnmount() {
+        clearInterval(intervalID);
     }
 
     loadData() {
@@ -35,6 +40,13 @@ class NewOrderTab extends React.Component {
         const url = this.genFetchUrl(this.storeName);
 
         onRefreshNeworder(this.storeName, url);
+    }
+
+    componentDidUpdate() {
+        let store = this._store();
+        if (store.playPromptMusic) {
+            this.playPromptMusic();
+        }
     }
 
     _store() {
@@ -53,11 +65,18 @@ class NewOrderTab extends React.Component {
     async playPromptMusic() {
         const soundObject = new Audio.Sound();
         try {
-            await soundObject.unloadAsync();
+            // await soundObject.unloadAsync();
             await soundObject.loadAsync(require('../../assets/musics/neworder.mp3'));
+            soundObject.setOnPlaybackStatusUpdate((status) => {
+                if (!status.didJustFinish) return;
+                console.log('Unloading ' + name);
+                soundObject.unloadAsync().catch(() => { })
+            });
             await soundObject.playAsync();
         } catch (error) {
             console.log("Play new order prompt music was failed.");
+            debugger;
+            console.error(error);
         }
     }
 
@@ -85,9 +104,10 @@ class NewOrderTab extends React.Component {
     render() {
         const { neworder } = this.props;
         let store = this._store();
-        if (store.playPromptMusic) {
-            this.playPromptMusic();
-        }
+        // if (store.playPromptMusic) {
+        //     this.playPromptMusic();
+        //     this.setState({})
+        // }
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.heading}>

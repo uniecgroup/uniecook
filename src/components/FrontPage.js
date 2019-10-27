@@ -20,10 +20,20 @@ class FrontPage extends React.Component {
           return <AppNavigatorContainer/>
         } else {
             return (
-             <View><Text>User Name: {this.props.user.userName}</Text><Login /></View>
+             <View style={styles.container}><Login /></View>
             )
         }
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      backgroundColor: '#FFFFFF',
+      justifyContent:'center',
+      alignItems: 'center',
+    }
+})
 
 export default connect(mapStateToProps)(FrontPage);
