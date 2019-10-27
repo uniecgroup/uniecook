@@ -22,15 +22,15 @@ class NewOrderTab extends React.Component {
         this.tabTitle = tabTitle;
         console.disableYellowBox = true;
 
-        clearInterval(this.intervalID);
-        intervalID = setInterval(() => {
-            this.loadData();
-        }, 60000);
+        // clearInterval(this.intervalID);
+        // intervalID = setInterval(() => {
+        //     this.loadData();
+        // }, 15000);
     }
 
     componentDidMount() {
         
-        this.loadData();
+        //this.loadData();
 
         this.focusListener = this.props.navigation.addListener('didFocus', () => {
             this.loadData();
@@ -40,7 +40,7 @@ class NewOrderTab extends React.Component {
     componentWillUnmount() {
         // Remove the event listener before removing the screen from the stack
         this.focusListener.remove();
-        clearInterval(intervalID);
+        //clearInterval(intervalID);
     }
 
     loadData() {
@@ -50,12 +50,12 @@ class NewOrderTab extends React.Component {
         onRefreshNeworder(this.storeName, url);
     }
 
-    componentDidUpdate() {
-        let store = this._store();
-        if (store.playPromptMusic) {
-            this.playPromptMusic();
-        }
-    }
+    // componentDidUpdate() {
+    //     let store = this._store();
+    //     if (store.playPromptMusic) {
+    //         this.playPromptMusic();
+    //     }
+    // }
 
     _store() {
         const { neworder } = this.props;
