@@ -38,3 +38,41 @@ function handleInProgressOrderDetailData(dispatch, storeName, data) {
     })
 }
 
+export function onChangeOrderToCookDone(storeName, url, order_id) {
+    return dispatch => {
+        dispatch({ type: Types.CHANGEORDER_TO_COOKDONE, storeName: storeName });
+        let dataStore = new DataStoreNoCache();
+
+        let requestData = {
+            order_id: order_id
+        };
+
+        dataStore.fetchDataPost(url, requestData)    //异步action与数据流
+            .then(data => {
+                handleChangeOrderToCookDoneData(dispatch, storeName, data)
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch({
+                    type: Types.CHANGEORDER_TO_COOKDONE_FAIL,
+                    storeName,
+                    error
+                });
+            })
+    }
+}
+
+function handleChangeOrderToCookDoneData(dispatch, storeName, data) {
+    if (data && data.error) {
+        dispatch({
+            type: Types.CHANGEORDER_TO_COOKDONE_FAIL,
+            storeName,
+            error
+        });
+    }
+
+    dispatch({
+        type: Types.CHANGEORDER_TO_COOKDONE_SUCCESS,
+        storeName,
+    })
+}

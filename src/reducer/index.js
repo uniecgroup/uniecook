@@ -13,7 +13,6 @@ import { rootCom, AppNavigator } from '../navigation/AppNavigation';
 //1.指定默认navigator state
 const navState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams(rootCom))
 
-
 //2. 创建自己的 navigation reducer
 const navReducer = (state = navState, action) => {
     const nextState = AppNavigator.router.getStateForAction(action, state);

@@ -3,8 +3,11 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import NewOrderDetail from '../components/NewOrderDetail';
+import NavigationUtil from '../navigation/NavigationUtil';
 
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrderDetail';
+const URL_UPDATE_ORDER_TO_COOKING = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/updateOrderToCooking';
+const URL_UPDATE_ORDER_TO_CANCEL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/updateOrderToCancle';
 
 class NewOrderDetailsPage extends React.Component {
     constructor(props) {
@@ -13,7 +16,6 @@ class NewOrderDetailsPage extends React.Component {
         const { item, tabLabel } = this.params;
         this.storeName = tabLabel;
         this.order_id = item.order_id;
-        console.log("order_id=" + item.order_id);
     }
 
     componentDidMount() {
@@ -35,9 +37,37 @@ class NewOrderDetailsPage extends React.Component {
                 item: [],
                 isLoading: false,
                 canLoadData: false,
+                isOrderStatusChanged: false,
             }
         }
         return store;
+    }
+
+    changeOrderToCooking() {
+        const { onChangeOrderToCooking } = this.props;
+        const url = URL_UPDATE_ORDER_TO_COOKING;
+
+        onChangeOrderToCooking(this.storeName, url, this.order_id);
+    }
+
+    changeOrderToCancel() {
+        const { onChangeOrderToCancel } = this.props;
+        const url = URL_UPDATE_ORDER_TO_CANCEL;
+
+        onChangeOrderToCancel(this.storeName, url, this.order_id);
+    }
+
+    componentDidUpdate() {
+        let store = this._store();
+
+        if (store.isOrderStatusChanged) {
+            NavigationUtil.navigation = this.props.navigation;
+            NavigationUtil.goPage({
+                tabLabel: 'neworder',
+                tabTitle: 'New Orders',
+            }, 'NewOrderListPage')
+            
+        }
     }
 
     genFetchUrl() {
@@ -48,9 +78,19 @@ class NewOrderDetailsPage extends React.Component {
         const { neworderdetail } = this.props;
         let store = this._store();
 
-        return (
-            store.canLoadData ? <NewOrderDetail item={store.item} /> : <View style={styles.container}></View>
-        )
+        if (store.canLoadData) {
+            return (
+                <NewOrderDetail item={store.item} onCookNow={(callback) => {
+                    this.changeOrderToCooking()
+                }} onCancelOrder={(callback) => {
+                    this.changeOrderToCancel()
+                }} />
+            )
+        } else {
+            return (
+                <View style={styles.container}></View>
+            )
+        }
     }
 }
 
@@ -60,6 +100,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoadOrderDetail: (storeName, url, order_id) => dispatch(actions.onLoadOrderDetail(storeName, url, order_id)),
+    onChangeOrderToCooking: (storeName, url, order_id) => dispatch(actions.onChangeOrderToCooking(storeName, url, order_id)),
+    onChangeOrderToCancel: (storeName, url, order_id) => dispatch(actions.onChangeOrderToCancel(storeName, url, order_id)),
 });
 
 export default NewOrderDetailsPage = connect(mapStateToProps, mapDispatchToProps)(NewOrderDetailsPage);

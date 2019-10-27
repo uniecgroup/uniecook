@@ -49,26 +49,6 @@ export default class HistoryOrderDetail extends React.Component {
                                 <Text style={styles.amount}>{total.text}</Text>
                             </View>
                         })}
-
-                        <View style={styles.toDoButtons}>
-                            <TouchableOpacity
-                                style={styles.cancelOrderButton}
-                                onPress={() => {
-
-                                }}
-                            >
-                                <Text style={styles.cancelOrderButtonText}>Cancel Order</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.cookNowButton}
-                                onPress={() => {
-                                    
-                                }}
-                            >
-                                <Text style={styles.cookNowButtonText}>Cook Now</Text>
-                            </TouchableOpacity>
-                        </View>
-                        
                     </View>
                 </View>
             </ScrollView>

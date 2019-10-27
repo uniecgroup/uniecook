@@ -25,12 +25,43 @@ export default function onAction(state = defaultState, action) {
                 ...state,
                 isLoading: true,
                 canLoadData: false,
+                isOrderStatusChanged: false,
             };
         case Types.NEWORDERDETAIL_LOAD_FAIL:
             return {
                 ...state,
                 isLoading: false,
                 canLoadData: false,
+            };
+        case Types.CHANGENEWORDER_TO_COOKING_SUCCESS:
+            return {
+                ...state,
+                isOrderStatusChanged: true,
+            };
+        case Types.CHANGENEWORDER_TO_COOKING:
+            return {
+                ...state,
+                isOrderStatusChanged: false,
+            };
+        case Types.CHANGENEWORDER_TO_COOKING_FAIL:
+            return {
+                ...state,
+                isOrderStatusChanged: false,
+            };
+        case Types.CHANGENEWORDER_TO_CANCEL_SUCCESS:
+            return {
+                ...state,
+                isOrderStatusChanged: true,
+            };
+        case Types.CHANGENEWORDER_TO_CANCEL:
+            return {
+                ...state,
+                isOrderStatusChanged: false,
+            };
+        case Types.CHANGENEWORDER_TO_CANCEL_FAIL:
+            return {
+                ...state,
+                isOrderStatusChanged: false,
             };
         default:
             return state;

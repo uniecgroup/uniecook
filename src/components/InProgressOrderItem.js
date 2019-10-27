@@ -32,8 +32,8 @@ export default class InProgressOrderItem extends React.Component {
                 <TouchableOpacity style={styles.item} onPress={this.props.onSelect}>
                     <Text style={styles.listId}>{item.order_id}</Text>
                     <Text style={styles.listName}>{item.customer}</Text>
+                    <Text style={styles.listPrice}>{item.total}</Text>
                     <Text style={styles.listTime}>{item.remaining_minutes}</Text>
-                    <MaterialCommunityIcons name='check-circle' size={24} color='#ccc' style={{ marginLeft: 10 }} />
                 </TouchableOpacity>
             </Swipeout>
 
