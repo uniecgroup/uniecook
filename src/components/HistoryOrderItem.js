@@ -14,7 +14,6 @@ export default class HistoryOrderItem extends React.Component {
                 <Text style={styles.listName}>{item.payment_method}</Text>
                 <Text style={styles.listName}>{item.shipping_method}</Text>
                 <Text style={styles.listPrice}>{item.total_title}</Text>
-                <MaterialCommunityIcons name='check-circle' size={24} color='#ccc' style={{ marginLeft: 10 }} />
             </TouchableOpacity>
         )
     }
