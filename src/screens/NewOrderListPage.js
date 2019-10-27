@@ -21,13 +21,15 @@ class NewOrderTab extends React.Component {
         this.storeName = tabLabel;
         this.tabTitle = tabTitle;
         console.disableYellowBox = true;
-    }
 
-    componentDidMount() {
         clearInterval(this.intervalID);
         intervalID = setInterval(() => {
             this.loadData();
-        }, 60000);        
+        }, 60000);
+    }
+
+    componentDidMount() {
+        
         this.loadData();
 
         this.focusListener = this.props.navigation.addListener('didFocus', () => {
@@ -38,9 +40,6 @@ class NewOrderTab extends React.Component {
     componentWillUnmount() {
         // Remove the event listener before removing the screen from the stack
         this.focusListener.remove();
-    }
-
-    componentWillUnmount() {
         clearInterval(intervalID);
     }
 
@@ -78,13 +77,11 @@ class NewOrderTab extends React.Component {
             await soundObject.loadAsync(require('../../assets/musics/neworder.mp3'));
             soundObject.setOnPlaybackStatusUpdate((status) => {
                 if (!status.didJustFinish) return;
-                console.log('Unloading ' + name);
+
                 soundObject.unloadAsync().catch(() => { })
             });
             await soundObject.playAsync();
         } catch (error) {
-            console.log("Play new order prompt music was failed.");
-            debugger;
             console.error(error);
         }
     }
