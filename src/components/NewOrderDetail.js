@@ -9,6 +9,7 @@ export default class NewOrderDetail extends React.Component {
         if (!item || !item.order_id) return null;
 
         return (
+            
             <ScrollView style={styles.container}>
                 <View style={styles.orderInfo}>
                     <Text style={styles.orderInfoText}>{item.order_id} {item.customer} {item.delivery_time_title}</Text>

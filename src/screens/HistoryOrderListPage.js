@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import HistoryOrderItem from '../components/HistoryOrderItem';
 import NavigationUtil from '../navigation/NavigationUtil';
+import DateRange, {TimeSpans} from '../components/DateRange';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Ionicons } from 'react-native-vector-icons';
 
 //const URL = 'https://api.github.com/search/repositories?q=java';
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrderHistory';
@@ -19,6 +22,10 @@ class HistoryOrderTab extends React.Component {
         this.tabTitle = tabTitle;
 
         console.disableYellowBox = true;
+
+        this.state = {
+            timeSpan: TimeSpans[0],
+        }
     }
 
     componentDidMount() {
@@ -65,6 +72,38 @@ class HistoryOrderTab extends React.Component {
         />
     }
 
+    renderTitleView() {
+        return <View style={styles.dateRange}>
+            <TouchableOpacity
+                underlayColor='transparent'
+                onPress={() => this.dialog.show()}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={{
+                        fontSize: 14,
+                        color: '#000',
+                    }}>Date Range: {this.state.timeSpan.showText}</Text>
+                    <Ionicons
+                        name={'ios-arrow-down'}
+                        size={22}
+                        style={{color: '#000', marginLeft: 10,}}
+                    />
+                </View>
+            </TouchableOpacity>
+        </View>;
+    }
+    onSelectTimeSpan(tab) {
+        this.dialog.dismiss();
+        this.setState({
+            timeSpan: tab,
+        });
+    }
+    renderDialog() {
+        return <DateRange
+            ref={dialog => this.dialog = dialog}
+            onSelect={tab => this.onSelectTimeSpan(tab)}
+        />;
+    }
+
     render() {
         const { historyorder } = this.props;
         let store = this._store();
@@ -73,6 +112,8 @@ class HistoryOrderTab extends React.Component {
             <SafeAreaView style={styles.container}>
                 <View style={styles.heading}>
                     <Text style={styles.headingText}>{this.tabTitle}</Text>
+                    {this.renderTitleView()}
+                    {this.renderDialog()}
                 </View>
                 <FlatList
                     data={store.items}
@@ -107,7 +148,6 @@ export default HistoryOrderListPage = connect(mapStateToProps, mapDispatchToProp
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000',
     },
     title: {
         fontSize: 14,
@@ -115,11 +155,17 @@ const styles = StyleSheet.create({
     heading: {
         paddingBottom: 15,
         marginTop: 10,
-        marginLeft: 80,
+        marginLeft: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     headingText: {
         fontSize: 20,
         fontWeight: '200',
-        color: 'white',
+        color: 'black',
     },
+    dateRange: {
+        paddingRight: 20,
+        paddingTop: 10,
+    }
 });

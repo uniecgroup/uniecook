@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import UserInfo from '../components/UserInfo'
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator} from 'react-navigation-stack'
+import { createStackNavigator} from 'react-navigation-stack';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import SettingDetails from '../components/SettingDetails'
 
@@ -25,8 +26,10 @@ const pageStack = createStackNavigator(RouteConfigs, StackNavigatorConfig);
 const SettingPage = createAppContainer(pageStack)
 
 export default class SettingsPage extends React.Component{
+
     render(){
         return <SettingPage/>
+        
     }
 }
 

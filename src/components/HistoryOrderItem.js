@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class HistoryOrderItem extends React.Component {
@@ -9,10 +9,13 @@ export default class HistoryOrderItem extends React.Component {
 
         return (
             <TouchableOpacity style={styles.item} onPress={this.props.onSelect}>
-                <Text style={styles.listId}>{item.order_id} {item.order_date}</Text>
-                <Text style={styles.listName}>{item.customer}</Text>
-                <Text style={styles.listName}>{item.payment_method}</Text>
-                <Text style={styles.listName}>{item.shipping_method}</Text>
+                <Text style={styles.listId}>{item.order_id}</Text>
+                <View style={styles.listCustomer}>
+                    <Text style={styles.listName}>{item.customer}</Text>
+                    <Text style={styles.listTime}>{item.order_date}</Text>
+                </View>
+                <Text style={styles.listPay}>{item.payment_method}</Text>
+                <Text style={styles.listShip}>{item.shipping_method}</Text>
                 <Text style={styles.listPrice}>{item.total_title}</Text>
             </TouchableOpacity>
         )
@@ -36,22 +39,36 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         flex: 1,
         flexDirection: 'row',
+        borderTopWidth: 1,
+        borderColor: '#ddd',
     },
     listId: {
         flex: 1,
+        fontSize: 12,
+    },
+    listCustomer: {
+        flex: 3,
+        fontWeight: 'bold',
     },
     listName: {
-        flex: 5,
+        fontSize: 12,
         fontWeight: 'bold',
+    },
+    listTime:{
+        fontSize: 12,
+        color: '#999',
+    },
+    listPay: {
+        flex: 3,
+        fontSize: 12,
+    },
+    listShip: {
+        flex: 2,
+        fontSize: 12,
     },
     listPrice: {
         flex: 1,
-    },
-    listTime: {
-        flex: 1,
-    },
-    listCheck: {
-        flex: 1,
         textAlign: 'right',
+        fontSize: 12,
     },
 });

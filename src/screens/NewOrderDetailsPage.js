@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import NewOrderDetail from '../components/NewOrderDetail';
 import NavigationUtil from '../navigation/NavigationUtil';
+import NavigationBar from '../components/NavigationBar';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AntDesign, Feather } from '@expo/vector-icons';
 
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrderDetail';
 const URL_UPDATE_ORDER_TO_COOKING = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/updateOrderToCooking';
@@ -66,7 +69,7 @@ class NewOrderDetailsPage extends React.Component {
                 tabLabel: 'neworder',
                 tabTitle: 'New Orders',
             }, 'NewOrderListPage')
-            
+
         }
     }
 
@@ -74,17 +77,70 @@ class NewOrderDetailsPage extends React.Component {
         return URL;
     }
 
+    getLeftButton() {
+        return <View style={{ flexDirection: 'row' }}>
+            
+            <TouchableOpacity
+                onPress={() => {
+                    NavigationUtil.goBack(this.props.navigation);
+                }}
+            >
+                <View style={{ padding: 5, paddingLeft: 15 }}>
+                    <AntDesign name={'arrowleft'} size={30} />
+                </View>
+            </TouchableOpacity>
+        </View>
+    }
+
+    getRightButton() {
+        return <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+                onPress={() => {
+                    alert("Printing...")
+                }}
+            >
+                <View style={{ padding: 5, marginRight: 15 }}>
+                    <AntDesign name={'printer'} size={30} />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    Linking.openURL('https://www.google.ca/maps/dir/6701+Rue+Hadley,+Montréal,+QC+H4E+3R3/1582+Rue+Cardinal,+Saint-Laurent,+QC+H4L+3G2')
+                }}
+            >
+                <View style={{ padding: 5, marginRight: 15 }}>
+                    <Feather name={'map-pin'} size={30} />
+                </View>
+            </TouchableOpacity>
+        </View>
+    }
+
     render() {
+        let statusBar = {
+            backgroundColor: 'white',
+            barStyle: 'light-content',
+        };
+        let navigationBar = <NavigationBar
+            title={'Order Details'}
+            style={{ backgroundColor: 'white' }}
+            statusBar={statusBar}
+            leftButton={this.getLeftButton()}
+            rightButton={this.getRightButton()}
+        />
         const { neworderdetail } = this.props;
         let store = this._store();
 
         if (store.canLoadData) {
             return (
-                <NewOrderDetail item={store.item} onCookNow={(callback) => {
-                    this.changeOrderToCooking()
-                }} onCancelOrder={(callback) => {
-                    this.changeOrderToCancel()
-                }} />
+                <View style={{flex:1}}>
+                    {navigationBar}
+                    <NewOrderDetail item={store.item} onCookNow={(callback) => {
+                        this.changeOrderToCooking()
+                    }} onCancelOrder={(callback) => {
+                        this.changeOrderToCancel()
+                    }} />
+                </View>
+
             )
         } else {
             return (

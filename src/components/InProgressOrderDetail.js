@@ -163,19 +163,9 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     toDoButtons: {
-        flexDirection: 'row',
         paddingLeft: 50,
         paddingRight: 20,
         marginTop: 20,
-        justifyContent: 'space-between',
-    },
-    cancelOrderButton: {
-        backgroundColor: '#eee',
-        borderRadius: 3,
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 35,
-        paddingRight: 35,
     },
     cookDoneButton: {
         backgroundColor: '#3cb46e',
@@ -184,9 +174,11 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
         paddingLeft: 35,
         paddingRight: 35,
+        flex:1,
     },
     cookDoneButtonText: {
         color: '#fff',
         fontWeight: 'bold',
+        textAlign: 'center',
     }
 });

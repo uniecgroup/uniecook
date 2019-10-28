@@ -17,25 +17,7 @@ const NewOrderNavigator = createStackNavigator({
     NewOrderDetailsPage: {
         screen: NewOrderDetailsPage,
         navigationOptions: () => ({
-            title: 'Order Details',
-            headerRight: () => {
-                return (
-                    <View style={styles.headerRightButton}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                alert("Printing...")
-                            }}>
-                            <MaterialCommunityIcons name='printer' size={32} color='#000' style={{ marginRight: 30 }} />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => {
-                                Linking.openURL('https://www.google.ca/maps/dir/6701+Rue+Hadley,+Montréal,+QC+H4E+3R3/1582+Rue+Cardinal,+Saint-Laurent,+QC+H4L+3G2')
-                            }}>
-                            <MaterialCommunityIcons name='google-maps' size={32} color='#000' style={{ marginRight: 20 }} />
-                        </TouchableOpacity>
-                    </View>
-                )
-            }
+            header: null
         })
     },
 }, {
