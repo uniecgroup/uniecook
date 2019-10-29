@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {createAppContainer} from 'react-navigation'
+import React, { Component } from 'react';
+import { createAppContainer } from 'react-navigation'
 import AppNavigator from '../navigation/AppNavigation';
 import { View, FlatList, StyleSheet, Text, TouchableOpacity, Button } from 'react-native';
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 import Login from './Login'
 
 import actions from '../common/actions/index';
@@ -28,7 +28,7 @@ class FrontPage extends React.Component {
         clearInterval(this.intervalID);
         intervalID = setInterval(() => {
             this.loadData();
-        }, 15000);
+        }, 30000);
     }
 
     loadData() {
@@ -79,13 +79,15 @@ class FrontPage extends React.Component {
         }
     }
 
-  render() {
-      //alert('new user at front page ' + this.props.user.userName)
-      if (this.props.user.userLoggedOn == true) {
-          return <AppNavigatorContainer/>
+    render() {
+        //alert('new user at front page ' + this.props.user.userName)
+        if (this.props.user.userLoggedOn == true) {
+            return <AppNavigatorContainer />
         } else {
             return (
-             <View style={styles.container}><Login /></View>
+                <View style={styles.container}>
+                    <Login />
+                </View>
             )
         }
     }
@@ -93,12 +95,12 @@ class FrontPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      height: '100%',
-      backgroundColor: '#FFFFFF',
-      justifyContent:'center',
-      alignItems: 'center',
+        flex: 1,
+        height: '100%',
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(FrontPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FrontPage);

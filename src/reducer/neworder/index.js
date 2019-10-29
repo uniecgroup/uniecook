@@ -23,6 +23,7 @@ export default function onAction(state = defaultState, action) {
         case Types.NEWORDER_REFRESH:
             return {
                 ...state,
+                items: [],
                 isLoading: true,
                 playPromptMusic: false,
             };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import InProgressOrderDetail from '../components/InProgressOrderDetail';

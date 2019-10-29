@@ -21,6 +21,7 @@ export default function onAction(state = defaultState, action) {
         case Types.READYORDER_REFRESH:
             return {
                 ...state,
+                items: [],
                 isLoading: true,
             };
         case Types.READYORDER_REFRESH_SUCCESS:

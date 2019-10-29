@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../common/actions/index';
 import HistoryOrderDetail from '../components/HistoryOrderDetail';
+import NavigationUtil from '../navigation/NavigationUtil';
 import NavigationBar from '../components/NavigationBar';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign, Feather } from '@expo/vector-icons';
+//import {BluetoothManager,BluetoothEscposPrinter,BluetoothTscPrinter} from 'react-native-bluetooth-escpos-printer';
 
 const URL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrderDetail';
 

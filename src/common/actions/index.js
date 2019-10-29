@@ -4,7 +4,7 @@ import { onRefreshInProgressOrder } from './inprogressorder';
 import { onLoadInProgressOrderDetail, onChangeOrderToCookDone } from './inprogressorderdetail';
 import { onRefreshReadyOrder } from './readyorder';
 import { onLoadReadyOrderDetail, onChangeOrderToDelivering } from './readyorderdetail';
-import { onRefreshHistoryOrder } from './historyorder';
+import { onRefreshHistoryOrder, onLoadMoreHistoryOrder } from './historyorder';
 import { onLoadHistoryOrderDetail } from './historyorderdetail';
 
 export default {
@@ -15,6 +15,7 @@ export default {
     onRefreshReadyOrder,
     onLoadReadyOrderDetail,
     onRefreshHistoryOrder,
+    onLoadMoreHistoryOrder,
     onLoadHistoryOrderDetail,
     onChangeOrderToCooking,
     onChangeOrderToCancel,

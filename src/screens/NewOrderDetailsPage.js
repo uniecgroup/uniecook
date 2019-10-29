@@ -93,6 +93,8 @@ class NewOrderDetailsPage extends React.Component {
     }
 
     getRightButton() {
+        let store = this._store();
+
         return <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
                 onPress={() => {
@@ -105,7 +107,7 @@ class NewOrderDetailsPage extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
-                    Linking.openURL('https://www.google.ca/maps/dir/6701+Rue+Hadley,+Montréal,+QC+H4E+3R3/1582+Rue+Cardinal,+Saint-Laurent,+QC+H4L+3G2')
+                    Linking.openURL(`https://www.google.ca/maps/place/${store.item.delivery_address}`)
                 }}
             >
                 <View style={{ padding: 5, marginRight: 15 }}>

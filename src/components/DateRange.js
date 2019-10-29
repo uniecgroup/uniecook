@@ -3,10 +3,10 @@ import {Modal, Text, TouchableOpacity, StyleSheet, View, Platform, DeviceInfo} f
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TimeSpan from '../model/TimeSpan';
 export const TimeSpans = [
-    new TimeSpan('All', 'since=All'),
-    new TimeSpan('Today', 'since=daily'),
-    new TimeSpan('This week', 'since=weekly'), 
-    new TimeSpan('This month', 'since=monthly')
+    new TimeSpan('Today', '1'),
+    new TimeSpan('Week', '2'), 
+    new TimeSpan('Month', '3'),
+    new TimeSpan('All', '0'),
 ]
 export default class DateRange extends Component {
     state = {
@@ -46,12 +46,12 @@ export default class DateRange extends Component {
                         {TimeSpans.map((result, i, arr) => {
                             return <TouchableOpacity
                                 key={i}
-                                onPress={() => onSelect(arr[i])}
+                                onPress={() => onSelect(result)}
                                 underlayColor='transparent'>
                                 <View style={styles.text_container}>
                                     <Text
                                         style={styles.text}
-                                    >{arr[i].showText}</Text>
+                                    >{result.showText}</Text>
                                 </View>
                             </TouchableOpacity>
                         })}

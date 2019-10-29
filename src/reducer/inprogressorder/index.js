@@ -21,6 +21,7 @@ export default function onAction(state = defaultState, action) {
         case Types.INPROGRESSORDER_REFRESH:
             return {
                 ...state,
+                items:[],
                 isLoading: true,
             };
         case Types.INPROGRESSORDER_REFRESH_FAIL:

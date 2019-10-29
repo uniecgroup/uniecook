@@ -4,8 +4,6 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HistoryOrderListPage from '../screens/HistoryOrderListPage';
 import HistoryOrderDetailsPage from '../screens/HistoryOrderDetailsPage';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 const HistoryOrderNavigator = createStackNavigator({
     HistoryOrderListPage: {

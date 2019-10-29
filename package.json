@@ -17,6 +17,8 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-bluetooth-escpos-printer": "git+https://github.com/januslo/react-native-bluetooth-escpos-printer.git",
+    "react-native-easy-toast": "^1.2.0",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-popover-view": "^2.0.5",
     "react-native-swipeout": "^2.3.6",
