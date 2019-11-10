@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import { View, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, Button, Alert } from 'react-native';
+import { View, Modal, StyleSheet, Text, TextInput, TouchableOpacity, Button, Alert } from 'react-native';
 import loginSuccessAction from '../common/actions/login'
+// import PopupModal from './Modal'
 import { connect } from 'react-redux'
 import ACTION_TYPES from '../common/actions/types'
 import StringHelper from '../common/i18n/index';
+
+const backendLoginURL = 'https://www.myuniec.com/81335/index.php?route=apps/login/login';
+const backendGetOrderURL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrders';;
 
 const mapStateToProps = (state) => {
     return {
@@ -14,6 +18,9 @@ const mapStateToProps = (state) => {
 class Login extends Component {
     constructor(props) {
         super(props);
+
+       //  this.modal = new PopupModal();
+
         this.state = {
             storeId: '',
             userName: '',
@@ -62,7 +69,7 @@ class Login extends Component {
         )
     }
 
-    submit() {
+    async submit() {
         // validation
         const txt_storeIdEmpty = '* ';
         const txt_userNameEmpty = '* ';
@@ -108,14 +115,38 @@ class Login extends Component {
             // return;
 
             // call backend
-            this.props.dispatch({
-                type: ACTION_TYPES.USER_OPERATIONS.LOGGED_ON,
-                payload: {
-                    userLoggedOn: true,
-                    userName: 'Logged On User',
-                    apiToken: 'adfsdfsdfds',
-                }
-            })
+            const token = await fetch(backendLoginURL,
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        store_id: '81335',
+                        username: this.state.userName,
+                        password: this.state.password,
+                    }),
+                 })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        return responseJson.token;
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                       // this.modal.showModal();
+                    });
+
+            if (token) {
+                this.props.dispatch({
+                    type: ACTION_TYPES.USER_OPERATIONS.LOGGED_ON,
+                    payload: {
+                        userLoggedOn: true,
+                        userName: this.state.userName,
+                        apiToken: token,
+                    }
+                })
+            }
         }
     }
 }
