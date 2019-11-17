@@ -18,7 +18,9 @@ export default function onAction(state = initialState, action) {
         case ACTION_TYPES.USER_OPERATIONS.LOGGED_ON:
             return {
                 ...state,
+                storeId: action.payload.storeId,                
                 userName: action.payload.userName,
+                userPassword: action.payload.userPassword,
                 apiToken: action.payload.apiToken,
                 userLoggedOn: true
             };

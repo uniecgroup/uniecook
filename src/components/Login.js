@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import ACTION_TYPES from '../common/actions/types'
 import StringHelper from '../common/i18n/index';
 
+import MyLocalStore from '../common/localstorage/mylocalstore'
+
 const backendLoginURL = 'https://www.myuniec.com/81335/index.php?route=apps/login/login';
 const backendGetOrderURL = 'https://www.myuniec.com/81335/index.php?route=apps/monitoring/getOrders';;
 
@@ -22,13 +24,15 @@ class Login extends Component {
        //  this.modal = new PopupModal();
 
         this.state = {
-            storeId: '',
-            userName: '',
-            password: '',
+            storeId: '81335',
+            userName: 'admin',
+            password: '12345678',
 
             storeIdError: null,
             userNameError: null,
             passwordError: null,
+            
+            loginError: null
         }
     }
 
@@ -42,7 +46,7 @@ class Login extends Component {
                         )}
                         <Text style={styles.label}>{StringHelper.getString('login', 'storeid')}</Text>
                     </View>
-                    <TextInput style={styles.input} keyboardType="numeric" maxLength={4} onChangeText={storeId => this.setState({ storeId: storeId, storeIdError: null })} />
+                    <TextInput style={styles.input} value={this.state.storeId} keyboardType="numeric" maxLength={5} onChangeText={storeId => this.setState({ storeId: storeId, storeIdError: null })} />
                 </View>
                 <View style={styles.formControl}>
                     <View style={styles.labeLine}>
@@ -51,7 +55,7 @@ class Login extends Component {
                         )}  
                         <Text style={styles.label}>{StringHelper.getString('login', 'username')}</Text>
                     </View>                    
-                    <TextInput style={styles.input} onChangeText={userName => this.setState({ userName, userNameError:null })} />
+                    <TextInput style={styles.input} value={this.state.userName} onChangeText={userName => this.setState({ userName, userNameError:null })} />
                 </View>
                 <View style={styles.formControl}>
                    <View style={styles.labeLine}>
@@ -60,11 +64,14 @@ class Login extends Component {
                     )}
                     <Text style={styles.label}>{StringHelper.getString('login', 'password')}</Text>
                    </View>
-                    <TextInput secureTextEntry={true} style={styles.input} onChangeText={password => this.setState({ password, passwordError: null })} />
+                    <TextInput secureTextEntry={true} value={this.state.password} style={styles.input} onChangeText={password => this.setState({ password, passwordError: null })} />
                 </View>
                 <View style={styles.formControl}>
                     <Button onPress={() => this.submit()} title="Login"></Button>
                 </View>
+                {!!this.state.loginError && (
+                    <Text style={{ color: "red" }}>{this.state.loginError}</Text>
+                )}                
             </View>
         )
     }
@@ -74,6 +81,8 @@ class Login extends Component {
         const txt_storeIdEmpty = '* ';
         const txt_userNameEmpty = '* ';
         const txt_passwordEmpty = '* ';
+
+        const txt_loginError = 'stored, user name, or password error';
 
         let hasErrors = false;
 
@@ -129,23 +138,32 @@ class Login extends Component {
                     }),
                  })
                     .then((response) => response.json())
-                    .then((responseJson) => {
+                .then((responseJson) => {
+                        // save user credentials to local storage
+                    MyLocalStore.setStoreId(this.state.storeId);
                         return responseJson.token;
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                       // this.modal.showModal();
+                    }).catch((error) => {
+                        // console.error(error);
                     });
 
             if (token) {
+                alert(token)
+                MyLocalStore.setToken(token);
+                MyLocalStore.setStoreId(this.state.storeId);
+                MyLocalStore.setUserName(this.state.userName);
+                MyLocalStore.setPassword(this.state.password);
+                
                 this.props.dispatch({
                     type: ACTION_TYPES.USER_OPERATIONS.LOGGED_ON,
                     payload: {
-                        userLoggedOn: true,
+                        storeId: this.state.storeId,                                                
                         userName: this.state.userName,
+                        userPassword: this.state.password,
                         apiToken: token,
                     }
                 })
+            } else {
+                this.setState({ loginError: txt_loginError });
             }
         }
     }
@@ -154,11 +172,11 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center',
-        width: '40%',
-        height: '50%',
+        // flex: 1,
+        // backgroundColor: '#FFFFFF',
+        // justifyContent: 'center',
+        // width: '40%',
+        // height: '50%',
     },
 
     form: {
@@ -185,8 +203,8 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     labeLine: {
-        display: 'flex',
-        flexDirection: 'row',
+        // display: 'flex',
+        // flexDirection: 'row',
     }
 
 })
